@@ -1,0 +1,22 @@
+{
+  "name": "gulp-utilities",
+  "version": "0.1.0",
+  "authors": [
+    "Josh Graber <jgraber@renovo1.com>"
+  ],
+  "description": "Common utilities for building and deploying typescript code.",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "gulp",
+    "typescript"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
