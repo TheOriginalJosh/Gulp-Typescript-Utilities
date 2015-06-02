@@ -1,6 +1,6 @@
 var runSequence = require('run-sequence');
 
-module.exports = function(gulp) {
+exports.config = function(gulp) {
 	gulp.task('tc', function(done) {
 		runSequence('build.release',
 					'test.tc',
