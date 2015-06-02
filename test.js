@@ -2,10 +2,7 @@
 
 var karma = require('karma').server;
 
-exports.config = function(gulp) {
-    
-    var karmaConfig = __dirname + '/../karma.conf.js';
-    
+exports.config = function(gulp, karmaConfig) {
     gulp.task('test', function (done) {
     	karma.start({
 	    	configFile: karmaConfig,
