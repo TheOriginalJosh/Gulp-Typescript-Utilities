@@ -56,7 +56,7 @@ exports.getReferences = function (libReferences, libraryPath) {
 		libraryPath = defaults.librariesFolder;
 	}
 	
-    return _.map(libReferences, function(ref) { return libraryPath + ref.js; });
+    return _.map(libReferences, function(ref) { return libraryPath + '/' + ref.js; });
 };
 
 exports.getMinifiedReferences = function (libReferences, libraryPath) {
@@ -64,7 +64,7 @@ exports.getMinifiedReferences = function (libReferences, libraryPath) {
 		libraryPath = defaults.librariesFolder;
 	}
 	
-    return _.map(libReferences, function(ref) { return libraryPath + ref.min; });
+    return _.map(libReferences, function(ref) { return libraryPath + '/' + ref.min; });
 };
 
 exports.getCDNReferences = function (libReferences, libraryPath) {
@@ -74,9 +74,9 @@ exports.getCDNReferences = function (libReferences, libraryPath) {
 	
     return _.map(libReferences, function(ref) {
 		if (!ref.cdn) {
-			return libraryPath + ref.min;
+			return libraryPath + '/' + ref.min;
 		} else {
-			return libraryPath + ref.cdn;
+			return libraryPath + '/' + ref.cdn;
 		}
 	});
 };
