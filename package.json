@@ -1,0 +1,12 @@
+{
+  "name": "gulp-utilities",
+  "version": "0.1.0",
+  "description": "Standard gulp tasks for compiling TypeScript",
+  "keywords": [
+    "gulp",
+    "TypeScript",
+    "compile",
+    "lint"
+  ],
+  "author": "Josh Graber <jgraber@renovo1.com>",
+}
