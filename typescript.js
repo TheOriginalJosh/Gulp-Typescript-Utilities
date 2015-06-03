@@ -1,4 +1,4 @@
-﻿var gulp = require('gulp');
+var gulp = require('gulp');
 
 var merge = require('merge2');
 
@@ -36,6 +36,15 @@ exports.compileRelease = function(path, source, target) {
 
 	return result.js.pipe(streamify(uglify()))
 		.pipe(gulp.dest('./' + target));
+};
+
+exports.compileTypeDefinitions = function(path, source, target) {
+	var result = compile(gulp.src([
+		'./' + source + '/' + path, 
+		'./typings/**/*.d.ts'
+	]), true);
+
+	return result.dts.pipe(gulp.dest('./' + target + '/typings'));
 };
 
 function compile(source, noSourceMappings) {
