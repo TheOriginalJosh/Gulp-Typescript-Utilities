@@ -1,7 +1,7 @@
-﻿var del = require('del');
+var del = require('del');
 
 function clean(target, done) {
-	var dir = '/' + target;
+	var dir = './' + target;
 	return del([dir + '/*', '!' + dir + '/web.config'], done);
 }
 
