@@ -6,7 +6,7 @@ var defaults = require('./defaults');
 var lint = require('./lint');
 var resolve = require('./resolve');
 var test = require('./test');
-var teamCity = require('./ts');
+var teamCity = require('./teamCity');
 var typescript = require('./typescript');
 
 module.exports = {
