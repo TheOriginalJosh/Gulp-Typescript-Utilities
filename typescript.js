@@ -8,13 +8,14 @@ var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 
 var ts = require('gulp-typescript');
-var typescriptCompiler = ts({
+
+exports.config = {
 	declarationFiles: true,
 	noExternalResolve: false,
 	module: 'commonjs',
 	target: 'ES5',
 	sortOutput: true,
-});
+};
 
 exports.compileDebug  = function(path, source, target) {
 	var result = compile(gulp.src([
@@ -48,6 +49,8 @@ exports.compileTypeDefinitions = function(path, source, target) {
 };
 
 function compile(source, noSourceMappings) {
+	var typescriptCompiler = ts(exports.config);
+	
 	if (noSourceMappings) {
 		return source.pipe(typescriptCompiler);
 	} else {
