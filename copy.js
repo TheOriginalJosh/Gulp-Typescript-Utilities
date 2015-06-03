@@ -1,4 +1,4 @@
-﻿var gulp = require('gulp');
+var gulp = require('gulp');
 
 var merge = require('merge2');
 var _ = require('lodash');
@@ -38,6 +38,14 @@ function copy(extensions, source, target) {
 
 module.exports = copy;
 
+module.exports.copyBowerDefinition = function(target) {
+	if (!target) {
+		target = defaults.debugFolder;
+	}
+	
+	return gulp.src('./bower.json').pipe(gulp.dest('./' + target));
+}
+
 module.exports.config = function (gulp) {
 	gulp.task('copy', ['copy.debug']);
 
@@ -55,5 +63,9 @@ module.exports.config = function (gulp) {
 			copy('*', defaults.librariesFolder, defaults.releaseFolder + '/' + defaults.librariesFolder),
 			copy('*', defaults.assetsFolder, defaults.releaseFolder + '/' + defaults.assetsFolder),
 		]);
+	});
+	
+	gulp.task('copy.bower', function() {
+		return copy.copyBowerDefinition(defaults.releaseFolder);
 	});
 };
