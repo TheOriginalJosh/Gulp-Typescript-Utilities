@@ -10,7 +10,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var ts = require('gulp-typescript');
 var typescriptCompiler = ts({
 	declarationFiles: true,
-	noExternalResolve: true,
+	noExternalResolve: false,
 	module: 'commonjs',
 	target: 'ES5',
 	sortOutput: true,
