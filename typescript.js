@@ -44,7 +44,7 @@ exports.compileTypeDefinitions = function(path, source, target) {
 		'./typings/**/*.d.ts'
 	]), true);
 
-	return result.dts.pipe(gulp.dest('./' + target + '/typings'));
+	return result.dts.pipe(gulp.dest('./' + target));
 };
 
 function compile(source, noSourceMappings) {
