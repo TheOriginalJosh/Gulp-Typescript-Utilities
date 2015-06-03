@@ -54,6 +54,7 @@ module.exports.config = function (gulp) {
 			copy(['json', 'ts', 'html', 'css'], defaults.sourceFolder, defaults.debugFolder),
 			copy('*', defaults.librariesFolder, defaults.debugFolder + '/' + defaults.librariesFolder),
 			copy('*', defaults.assetsFolder, defaults.debugFolder + '/' + defaults.assetsFolder),
+			copy.copyBowerDefinition(defaults.debugFolder),
 		]);
 	});
 	
@@ -62,10 +63,7 @@ module.exports.config = function (gulp) {
 			copy(['json', 'js', 'html', 'css'], defaults.sourceFolder, defaults.releaseFolder),
 			copy('*', defaults.librariesFolder, defaults.releaseFolder + '/' + defaults.librariesFolder),
 			copy('*', defaults.assetsFolder, defaults.releaseFolder + '/' + defaults.assetsFolder),
+			copy.copyBowerDefinition(defaults.releaseFolder),
 		]);
-	});
-	
-	gulp.task('copy.bower', function() {
-		return copy.copyBowerDefinition(defaults.releaseFolder);
 	});
 };

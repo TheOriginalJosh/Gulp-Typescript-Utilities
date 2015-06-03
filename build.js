@@ -24,7 +24,6 @@ exports.config = function(gulp, debugTask, releaseTask) {
 					'clean.release',
 					releaseTask,
 					'copy.release',
-					'copy.bower',
 					done);
 	});
 };
