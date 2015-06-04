@@ -22,6 +22,7 @@ exports.compileDebug = function (filename, source, target) {
 		
 	var bundler = browserify({ debug: true })
 		.add('./' + source + '/' + filename + '.ts')
+		.add('./typings/tsd.d.ts')
 		.plugin(tsify, {
 			target: 'ES5',
 			removeComments: false,
@@ -43,6 +44,7 @@ exports.compileRelease = function(filename, source, target) {
 	
 	var bundler = browserify()
 		.add('./' + source + '/' + filename + '.ts')
+		.add('./typings/tsd.d.ts')
 		.plugin(tsify, {
 			target: 'ES5',
 			removeComments: true,
