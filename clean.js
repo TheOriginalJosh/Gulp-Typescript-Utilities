@@ -10,7 +10,6 @@ function clean(target, done) {
 
 var preservedFiles = [
 	'web.config',
-	'bower.json',
 ];
 
 function getPreservedFiles(directory) {
