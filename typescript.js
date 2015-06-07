@@ -9,18 +9,12 @@ var sourcemaps = require('gulp-sourcemaps');
 
 var ts = require('gulp-typescript');
 
-exports.config = {
-	declarationFiles: true,
-	noExternalResolve: false,
-	module: 'commonjs',
-	target: 'ES5',
-	sortOutput: true,
-};
+exports.project = ts.createProject('tsconfig.json');
 
 exports.compileDebug  = function(path, source, target) {
 	var result = compile(gulp.src([
-		'./' + source + '/' + path, 
 		'./typings/**/*.d.ts'
+		'./' + source + '/' + path, 
 	]));
 
 	return merge([
@@ -31,8 +25,8 @@ exports.compileDebug  = function(path, source, target) {
 
 exports.compileRelease = function(path, source, target) {
 	var result = compile(gulp.src([
-		'./' + source + '/' + path, 
 		'./typings/**/*.d.ts'
+		'./' + source + '/' + path, 
 	]), true);
 
 	return result.js.pipe(streamify(uglify()))
@@ -49,7 +43,7 @@ exports.compileTypeDefinitions = function(path, source, target) {
 };
 
 function compile(source, noSourceMappings) {
-	var typescriptCompiler = ts(exports.config);
+	var typescriptCompiler = ts(exports.project);
 	
 	if (noSourceMappings) {
 		return source.pipe(typescriptCompiler);
