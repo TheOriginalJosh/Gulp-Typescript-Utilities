@@ -42,6 +42,8 @@ exports.compileTypeDefinitions = function(path, source, target) {
 	return result.dts.pipe(gulp.dest('./' + target));
 };
 
+exports.compile = compile;
+
 function compile(source, noSourceMappings) {
 	var typescriptCompiler = ts(exports.project);
 	
