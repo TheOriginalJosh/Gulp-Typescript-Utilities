@@ -13,7 +13,7 @@ exports.project = ts.createProject('tsconfig.json');
 
 exports.compileDebug  = function(path, source, target) {
 	var result = compile(gulp.src([
-		'./typings/**/*.d.ts'
+		'./typings/**/*.d.ts',
 		'./' + source + '/' + path, 
 	]));
 
@@ -25,7 +25,7 @@ exports.compileDebug  = function(path, source, target) {
 
 exports.compileRelease = function(path, source, target) {
 	var result = compile(gulp.src([
-		'./typings/**/*.d.ts'
+		'./typings/**/*.d.ts',
 		'./' + source + '/' + path, 
 	]), true);
 
