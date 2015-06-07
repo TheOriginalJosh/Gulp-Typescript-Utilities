@@ -45,7 +45,9 @@ exports.compileTypeDefinitions = function(path, source, target) {
 exports.compile = compile;
 
 function compile(source, noSourceMappings) {
-	var typescriptCompiler = ts(exports.project);
+	var typescriptCompiler = ts(exports.project, {
+		typescript: require('typescript'),
+	});
 	
 	if (noSourceMappings) {
 		return source.pipe(typescriptCompiler);
