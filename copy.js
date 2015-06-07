@@ -51,7 +51,7 @@ module.exports.config = function (gulp) {
 
 	gulp.task('copy.debug', function () {
 		return merge([
-			copy(['json', 'ts', 'html', 'css'], defaults.sourceFolder, defaults.debugFolder),
+			copy(['json', 'ts', 'js', 'html', 'css'], defaults.sourceFolder, defaults.debugFolder),
 			copy('*', defaults.librariesFolder, defaults.debugFolder + '/' + defaults.librariesFolder),
 			copy('*', defaults.assetsFolder, defaults.debugFolder + '/' + defaults.assetsFolder),
 			copy.copyBowerDefinition(defaults.debugFolder),
