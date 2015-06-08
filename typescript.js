@@ -9,7 +9,9 @@ var sourcemaps = require('gulp-sourcemaps');
 
 var ts = require('gulp-typescript');
 
-exports.project = ts.createProject('tsconfig.json');
+exports.project = ts.createProject('tsconfig.json', {
+	typescript: require('typescript'),
+});
 
 exports.compileDebug  = function(path, source, target) {
 	var result = compile(gulp.src([
@@ -45,9 +47,7 @@ exports.compileTypeDefinitions = function(path, source, target) {
 exports.compile = compile;
 
 function compile(source, noSourceMappings) {
-	var typescriptCompiler = ts(exports.project, {
-		typescript: require('typescript'),
-	});
+	var typescriptCompiler = ts(exports.project);
 	
 	if (noSourceMappings) {
 		return source.pipe(typescriptCompiler);
