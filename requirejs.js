@@ -4,6 +4,8 @@ var requirejs = require('requirejs');
 var typescript = require('./typescript');
 var del = require('del');
 
+var merge = require('merge2');
+
 exports.optimize = function(packageName, source, target, done) {
 	var sourceStream = gulp.src([
 		'./typings/tsd.d.ts',
@@ -12,7 +14,10 @@ exports.optimize = function(packageName, source, target, done) {
 	
 	var result = typescript.compile(sourceStream, true);
 
-	var out = result.js.pipe(gulp.dest('bin'));
+	var out = merge([
+		result.js.pipe(gulp.dest('bin')),
+		result.dts.pipe(gulp.dest('./' + target)),
+	]);
 	out.on('end', function() {
 		requirejs.optimize({
 		    baseUrl: 'bin',
@@ -26,4 +31,6 @@ exports.optimize = function(packageName, source, target, done) {
 		
 		del('bin', done);
 	});
+	
+	return out;
 };
