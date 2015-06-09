@@ -1,4 +1,4 @@
-var references = require('resolve');
+var references = require('./resolve');
 
 // Karma configuration
 module.exports = function (config, depedencies) {
