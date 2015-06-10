@@ -4,7 +4,7 @@ var defaults = require('./defaults');
 var _ = require('lodash');
 
 // Karma configuration
-module.exports = function (config, depedencies, locations) {
+module.exports = function (karma, depedencies, locations) {
 	locations = _.extend(defaults(), locations);
 	
 	var files = references.getReferences(depedencies);
@@ -13,7 +13,7 @@ module.exports = function (config, depedencies, locations) {
 		locations.source + '/**/*.tests.ts',
 	]);
 
-	config.set({
+	var config = {
 		// list of files / patterns to load in the browser
 		// Files are loaded in order, so items listed first are sometimes required by items below
 		files: files,
@@ -21,10 +21,6 @@ module.exports = function (config, depedencies, locations) {
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
 		frameworks: ['browserify', 'mocha', 'chai', 'sinon'],
-
-		preprocessors: {
-			locations.source + '/**/*.tests.ts': ['browserify']
-		},
 
 		browserify: {
 			debug: true,
@@ -44,8 +40,8 @@ module.exports = function (config, depedencies, locations) {
 		singleRun: true,
 
 		// level of logging
-		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-		logLevel: config.LOG_INFO,
+		// possible values: karma.LOG_DISABLE || karma.LOG_ERROR || karma.LOG_WARN || karma.LOG_INFO || karma.LOG_DEBUG
+		logLevel: karma.LOG_INFO,
         
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
@@ -58,7 +54,12 @@ module.exports = function (config, depedencies, locations) {
         
 		// enable / disable colors in the output (reporters and logs)
 		colors: true,
-	});
+	};
+	
+	config.preprocessors = {};
+	config.preprocessors[locations.source + 'source/**/*.tests.ts'] = ['browserify'];
+	
+	return config;
 };
 
 //		htmlReporter: {
