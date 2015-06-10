@@ -21,7 +21,7 @@ exports.config = function(gulp, packageName, locations, useLint) {
 		useLint = true;
 	}
 	
-	locations = _.extend(defaults, locations);
+	locations = _.extend(defaults(), locations);
 	
 	lint.config(gulp, locations);
 	clean.config(gulp, locations);
