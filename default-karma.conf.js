@@ -1,11 +1,16 @@
 var references = require('./resolve');
 
+var defaults = require('./defaults');
+var _ = require('lodash');
+
 // Karma configuration
-module.exports = function (config, depedencies) {
+module.exports = function (config, depedencies, locations) {
+	locations = _.extend(defaults(), locations);
+	
 	var files = references.getReferences(depedencies);
 	files = files.concat([
-		'libraries/angular-mocks/angular-mocks.js',
-		'source/**/*.tests.ts',
+		locations.libraries + '/angular-mocks/angular-mocks.js',
+		locations.source + '/**/*.tests.ts',
 	]);
 
 	config.set({
@@ -18,7 +23,7 @@ module.exports = function (config, depedencies) {
 		frameworks: ['browserify', 'mocha', 'chai', 'sinon'],
 
 		preprocessors: {
-			'source/**/*.tests.ts': ['browserify']
+			locations.source + '/**/*.tests.ts': ['browserify']
 		},
 
 		browserify: {
