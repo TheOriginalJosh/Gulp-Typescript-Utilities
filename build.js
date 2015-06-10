@@ -4,11 +4,11 @@ var copy = require('./copy');
 
 var runSequence = require('run-sequence');
 
-exports.config = function(gulp, packageName, source, target, useLint) {
+exports.config = function(gulp, packageName, source, debugTarget, releaseTarget, useLint) {
 	lint.config(gulp, source);
-	clean.config(gulp, target);
-	compile.config(gulp, packageName, source, target);
-	copy.config(gulp, source, target);
+	clean.config(gulp, debugTarget, releaseTarget);
+	compile.config(gulp, packageName, source, debugTarget, releaseTarget);
+	copy.config(gulp, source, debugTarget, releaseTarget);
 	
 	gulp.task('build', ['build.debug']);
 
