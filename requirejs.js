@@ -1,9 +1,11 @@
 var runSequence = require('run-sequence');
 
 var typescript = require('./typescript');
-var del = require('del');
-
 var merge = require('merge2');
+
+var requirejs = require('requirejs');
+
+var del = require('del');
 
 exports.config = function (gulp, packageName, locations) {
 	gulp.task('compile.release.bin', function () {
