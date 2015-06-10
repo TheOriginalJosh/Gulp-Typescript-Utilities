@@ -5,17 +5,28 @@ var clean = require('./clean');
 var compile = require('./compile');
 var copy = require('./copy');
 
+var defaults = require('./defaults');
+
 var runSequence = require('run-sequence');
 
-exports.config = function(gulp, packageName, source, libraries, assets, debugTarget, releaseTarget, useLint) {
+// locations: {
+//     source: 'source',
+//     libraries: 'libraries',
+//     assets: 'assets',
+//     debug: 'debug',
+//     release: 'release',
+// }
+exports.config = function(gulp, packageName, locations, useLint) {
 	if (_.isUndefined(useLint)) {
 		useLint = true;
 	}
 	
-	lint.config(gulp, source);
-	clean.config(gulp, debugTarget, releaseTarget);
-	compile.config(gulp, packageName, source, debugTarget, releaseTarget);
-	copy.config(gulp, source, libraries, assets, debugTarget, releaseTarget);
+	locations = _.extend(defaults, locations);
+	
+	lint.config(gulp, locations);
+	clean.config(gulp, locations);
+	compile.config(gulp, packageName, locations);
+	copy.config(gulp, locations);
 	
 	gulp.task('build', ['build.debug']);
 
