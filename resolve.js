@@ -7,22 +7,14 @@ var _ = require('lodash');
 
 var defaults = require('./defaults');
 
-exports.debug = function(libReferences, libraryPath, target, index) {
-	if (!target) {
-		target = defaults.debugFolder;
-	}
-
-	var scripts = buildScripts(exports.getReferences(libReferences, libraryPath));
-	return insertScripts(scripts, target, index);
+exports.debug = function(libReferences, locations, index) {
+	var scripts = buildScripts(exports.getReferences(libReferences, locations.libraries));
+	return insertScripts(scripts, locations.debug, index);
 }
 
 exports.release = function(libReferences, libraryPath, target, index) {
-	if (!target) {
-		target = defaults.releaseFolder;
-	}
-
-	var scripts = buildScripts(exports.getCDNReferences(libReferences, libraryPath));
-	return insertScripts(scripts, target, index);
+	var scripts = buildScripts(exports.getCDNReferences(libReferences, locations.libraries));
+	return insertScripts(scripts, locations.release, index);
 };
 
 function insertScripts(scripts, target, index) {
@@ -52,26 +44,14 @@ function insertScripts(scripts, target, index) {
 }
 
 exports.getReferences = function (libReferences, libraryPath) {
-	if (!libraryPath) {
-		libraryPath = defaults.librariesFolder;
-	}
-	
     return _.map(libReferences, function(ref) { return libraryPath + '/' + ref.js; });
 };
 
 exports.getMinifiedReferences = function (libReferences, libraryPath) {
-	if (!libraryPath) {
-		libraryPath = defaults.librariesFolder;
-	}
-	
     return _.map(libReferences, function(ref) { return libraryPath + '/' + ref.min; });
 };
 
 exports.getCDNReferences = function (libReferences, libraryPath) {
-	if (!libraryPath) {
-		libraryPath = defaults.librariesFolder;
-	}
-	
     return _.map(libReferences, function(ref) {
 		if (!ref.cdn) {
 			return libraryPath + '/' + ref.min;
