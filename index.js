@@ -1,7 +1,6 @@
 var build = require('./build');
 var clean = require('./clean');
 var copy = require('./copy');
-var defaults = require('./defaults');
 var karma = require('./default-karma.conf');
 var lint = require('./lint');
 var requirejs = require('./requirejs');
@@ -14,7 +13,6 @@ module.exports = {
 	build: build,
 	clean: clean,
 	copy: copy,
-	defaults: defaults,
 	karma: karma,
 	lint: lint,
 	requirejs: requirejs,
