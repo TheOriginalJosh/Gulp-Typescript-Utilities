@@ -9,7 +9,7 @@ exports.config = function(gulp, packageName, locations) {
 	gulp.task('compile', ['compile.debug']);
 	
 	gulp.task('compile.debug', function() {
-		return typescript.compileDebug('**/*.ts', locations.source, locations.debug);
+		return typescript.compileDebug('**/*.ts', locations.source, locations.debug, gulp);
 	});
 	
 	gulp.task('compile.release', function(done) {

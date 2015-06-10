@@ -1,5 +1,3 @@
-var gulp = require('gulp');
-
 var merge = require('merge2');
 var _ = require('lodash');
 
@@ -7,18 +5,11 @@ var defaults = require('./defaults');
 
 // Second param can be used as the target if the third param is not specified 
 //  (defaults to default source folder)
-function copy(extensions, source, target) {
-	if (!target) {
-		if (!source) {
-			source = defaults.sourceFolder;
-			target = defaults.debugFolder;
-		} else {
-			// If only one path is provided, use it as the target
-			target = source; 
-			source = defaults.sourceFolder;
-		}
+function copy(extensions, source, target, gulp) {
+	if (_.isUndefined(gulp)) {
+		gulp = require('gulp');
 	}
-
+	
 	var paths; 
 
 	if (!_.isArray(extensions)) {
@@ -38,7 +29,11 @@ function copy(extensions, source, target) {
 
 module.exports = copy;
 
-module.exports.copyBowerDefinition = function(target) {
+module.exports.copyBowerDefinition = function(target, gulp) {
+	if (_.isUndefined(gulp)) {
+		gulp = require('gulp');
+	}
+	
 	if (!target) {
 		target = defaults.debugFolder;
 	}
@@ -51,19 +46,19 @@ module.exports.config = function (gulp, locations) {
 
 	gulp.task('copy.debug', function () {
 		return merge([
-			copy(['json', 'ts', 'js', 'html', 'css'], locations.source, locations.debug),
-			copy('*', locations.libraries, locations.debug + '/' + locations.libraries),
-			copy('*', locations.assets, locations.debug + '/' + locations.assets),
-			copy.copyBowerDefinition(locations.debug),
+			copy(['json', 'ts', 'js', 'html', 'css'], locations.source, locations.debug, gulp),
+			copy('*', locations.libraries, locations.debug + '/' + locations.libraries, gulp),
+			copy('*', locations.assets, locations.debug + '/' + locations.assets, gulp),
+			copy.copyBowerDefinition(locations.debug, gulp),
 		]);
 	});
 	
 	gulp.task('copy.release', function () {
 		return merge([
-			copy(['json', 'js', 'html', 'css'], locations.source, locations.release),
-			copy('*', locations.libraries, locations.release + '/' + locations.libraries),
-			copy('*', locations.assets, locations.release + '/' + locations.assets),
-			copy.copyBowerDefinition(locations.release),
+			copy(['json', 'js', 'html', 'css'], locations.source, locations.release, gulp),
+			copy('*', locations.libraries, locations.release + '/' + locations.libraries, gulp),
+			copy('*', locations.assets, locations.release + '/' + locations.assets, gulp),
+			copy.copyBowerDefinition(locations.release, gulp),
 		]);
 	});
 };

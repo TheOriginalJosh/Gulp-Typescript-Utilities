@@ -1,5 +1,3 @@
-var gulp = require('gulp');
-
 var merge = require('merge2');
 
 var streamify = require('gulp-streamify');
@@ -13,7 +11,11 @@ exports.project = ts.createProject('tsconfig.json', {
 	typescript: require('typescript'),
 });
 
-exports.compileDebug  = function(path, source, target) {
+exports.compileDebug  = function(path, source, target, gulp) {
+	if (!gulp) {
+		gulp = require('gulp');
+	}
+	
 	var result = compile(gulp.src([
 		'./typings/**/*.d.ts',
 		'./' + source + '/' + path, 
@@ -25,7 +27,11 @@ exports.compileDebug  = function(path, source, target) {
 	]);
 };
 
-exports.compileRelease = function(path, source, target) {
+exports.compileRelease = function(path, source, target, gulp) {
+	if (!gulp) {
+		gulp = require('gulp');
+	}
+
 	var result = compile(gulp.src([
 		'./typings/**/*.d.ts',
 		'./' + source + '/' + path, 
@@ -35,7 +41,11 @@ exports.compileRelease = function(path, source, target) {
 		.pipe(gulp.dest('./' + target));
 };
 
-exports.compileTypeDefinitions = function(path, source, target) {
+exports.compileTypeDefinitions = function(path, source, target, gulp) {
+	if (!gulp) {
+		gulp = require('gulp');
+	}
+
 	var result = compile(gulp.src([
 		'./' + source + '/' + path, 
 		'./typings/**/*.d.ts'
