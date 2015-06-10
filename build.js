@@ -1,5 +1,6 @@
 var lint = require('./lint');
 var clean = require('./clean');
+var compile = require('./compile');
 var copy = require('./copy');
 
 var runSequence = require('run-sequence');
