@@ -10,10 +10,8 @@ function lint(source) {
 
 module.exports = lint;
 
-var defaults = require('./defaults');
-
-module.exports.config = function(gulp) {
+module.exports.config = function(gulp, source) {
     gulp.task('lint', function() {
-		lint(defaults.sourceFolder);
+		lint(source);
     });
 };
