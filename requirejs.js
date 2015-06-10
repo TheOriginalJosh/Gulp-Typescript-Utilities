@@ -5,18 +5,18 @@ var del = require('del');
 
 var merge = require('merge2');
 
-exports.config = function (gulp, packageName, source, target) {
+exports.config = function (gulp, packageName, locations) {
 	gulp.task('compile.release.bin', function () {
 		var sourceStream = gulp.src([
 			'./typings/tsd.d.ts',
-			'./' + source + '/**/*.ts',
+			'./' + locations.source + '/**/*.ts',
 		]);
 
 		var result = typescript.compile(sourceStream, true);
 
 		return merge([
 			result.js.pipe(gulp.dest('bin')),
-			result.dts.pipe(gulp.dest('./' + target)),
+			result.dts.pipe(gulp.dest('./' + locations.release)),
 		]);
 	});
 
@@ -24,7 +24,7 @@ exports.config = function (gulp, packageName, source, target) {
 		requirejs.optimize({
 			baseUrl: 'bin',
 			name: packageName,
-			out: target + '/' + packageName + '.js',
+			out: locations.release + '/' + packageName + '.js',
 		}, function (buildResponse) {
 			console.log(buildResponse);
 			done();

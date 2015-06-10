@@ -3,13 +3,13 @@ var runSequence = require('run-sequence');
 var typescript = require('./typescript');
 var requirejs = require('./requirejs');
 
-exports.config = function(gulp, packageName, source, debug, release) {
-	requirejs.config(gulp, packageName, source, release);
+exports.config = function(gulp, packageName, locations) {
+	requirejs.config(gulp, packageName, locations);
 	
 	gulp.task('compile', ['compile.debug']);
 	
 	gulp.task('compile.debug', function() {
-		return typescript.compileDebug('**/*.ts', source, debug);
+		return typescript.compileDebug('**/*.ts', locations.source, locations.debug);
 	});
 	
 	gulp.task('compile.release', function(done) {

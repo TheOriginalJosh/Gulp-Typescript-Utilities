@@ -12,8 +12,8 @@ function lint(source, gulp) {
 
 module.exports = lint;
 
-module.exports.config = function(gulp, source) {
+module.exports.config = function(gulp, locations) {
     gulp.task('lint', function() {
-		lint(source, gulp);
+		lint(locations.source, gulp);
     });
 };
