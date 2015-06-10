@@ -10,7 +10,7 @@ var del = require('del');
 exports.config = function (gulp, packageName, locations) {
 	gulp.task('compile.release.bin', function () {
 		var sourceStream = gulp.src([
-			'./typings/tsd.d.ts',
+			'./typings/**/*.d.ts',
 			'./' + locations.source + '/**/*.ts',
 		]);
 
