@@ -20,16 +20,14 @@ function getPreservedFiles(directory) {
 
 module.exports = clean;
 
-var defaults = require('./defaults');
-
-module.exports.config = function(gulp) {
+module.exports.config = function(gulp, debug, release) {
 	gulp.task('clean', ['clean.debug']);
 
 	gulp.task('clean.debug', function (done) {
-		return clean(defaults.debugFolder, done);
+		return clean(debug, done);
 	});
 
 	gulp.task('clean.release', function (done) {
-		return clean(defaults.releaseFolder, done);
+		return clean(release, done);
 	});
 };
