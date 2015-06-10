@@ -1,10 +1,6 @@
 var merge = require('merge2');
 var _ = require('lodash');
 
-var defaults = require('./defaults');
-
-// Second param can be used as the target if the third param is not specified 
-//  (defaults to default source folder)
 function copy(extensions, source, target, gulp) {
 	if (_.isUndefined(gulp)) {
 		gulp = require('gulp');
@@ -32,10 +28,6 @@ module.exports = copy;
 module.exports.copyBowerDefinition = function(target, gulp) {
 	if (_.isUndefined(gulp)) {
 		gulp = require('gulp');
-	}
-	
-	if (!target) {
-		target = defaults.debugFolder;
 	}
 	
 	return gulp.src('./bower.json').pipe(gulp.dest('./' + target));

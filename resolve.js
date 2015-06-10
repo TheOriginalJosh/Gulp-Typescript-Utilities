@@ -5,8 +5,6 @@ var gulp = require('gulp');
 var replace = require('gulp-replace');
 var _ = require('lodash');
 
-var defaults = require('./defaults');
-
 exports.debug = function(libReferences, locations, index) {
 	var scripts = buildScripts(exports.getReferences(libReferences, locations.libraries));
 	return insertScripts(scripts, locations.debug, index);
