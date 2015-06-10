@@ -4,10 +4,11 @@ var copy = require('./copy');
 
 var runSequence = require('run-sequence');
 
-exports.config = function(gulp, debugTask, releaseTask, useLint) {
-	lint.config(gulp);
-	clean.config(gulp);
-	copy.config(gulp);
+exports.config = function(gulp, packageName, source, target, useLint) {
+	lint.config(gulp, source);
+	clean.config(gulp, target);
+	compile.config(gulp, packageName, source, target);
+	copy.config(gulp, source, target);
 	
 	gulp.task('build', ['build.debug']);
 
@@ -15,12 +16,12 @@ exports.config = function(gulp, debugTask, releaseTask, useLint) {
 		if (useLint) {
 			runSequence('lint',
 						'clean.debug',
-						debugTask,
+						'compile.debug',
 						'copy.debug',
 						done);
 		} else {
 			runSequence('clean.debug',
-						debugTask,
+						'compile.debug',
 						'copy.debug',
 						done);
 		}
@@ -30,12 +31,12 @@ exports.config = function(gulp, debugTask, releaseTask, useLint) {
 		if (useLint) {
 			runSequence('lint',
 						'clean.release',
-						releaseTask,
+						'compile.release',
 						'copy.release',
 						done);
 		} else {
 			runSequence('clean.release',
-						releaseTask,
+						'compile.release',
 						'copy.release',
 						done);
 		}
