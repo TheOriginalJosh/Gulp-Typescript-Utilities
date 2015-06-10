@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var lint = require('./lint');
 var clean = require('./clean');
 var compile = require('./compile');
@@ -6,6 +8,10 @@ var copy = require('./copy');
 var runSequence = require('run-sequence');
 
 exports.config = function(gulp, packageName, source, libraries, assets, debugTarget, releaseTarget, useLint) {
+	if (_.isUndefined(useLint)) {
+		useLint = true;
+	}
+	
 	lint.config(gulp, source);
 	clean.config(gulp, debugTarget, releaseTarget);
 	compile.config(gulp, packageName, source, debugTarget, releaseTarget);
