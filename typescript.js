@@ -11,14 +11,14 @@ exports.project = ts.createProject('tsconfig.json', {
 	typescript: require('typescript'),
 });
 
-exports.compileDebug  = function(path, source, target, gulp) {
+exports.compileDebug  = function(source, target, gulp) {
 	if (!gulp) {
 		gulp = require('gulp');
 	}
 	
 	var result = compile(gulp.src([
 		'./typings/**/*.d.ts',
-		'./' + source + '/' + path, 
+		'./' + source + '/**/*.ts', 
 	], { base: source }));
 
 	return merge([
@@ -27,28 +27,39 @@ exports.compileDebug  = function(path, source, target, gulp) {
 	]);
 };
 
-exports.compileRelease = function(path, source, target, gulp) {
+exports.compileRelease = function(source, target, includeTypings, gulp) {
 	if (!gulp) {
 		gulp = require('gulp');
 	}
 
 	var result = compile(gulp.src([
 		'./typings/**/*.d.ts',
-		'./' + source + '/' + path, 
+		'./' + source + '/**/*.ts',
+		'!./' + source + '/**/*.tests.ts',
 	]), true);
 
-	return result.js.pipe(streamify(uglify()))
-		.pipe(gulp.dest('./' + target));
+	if (includeTypings) { 
+		return merge([
+			result.js.pipe(streamify(uglify()))
+			.pipe(gulp.dest('./' + target)),
+
+	        result.dts.pipe(gulp.dest('./' + target + '/typings')),
+		]);
+	} else {
+		return result.js.pipe(streamify(uglify()))
+				.pipe(gulp.dest('./' + target));
+	}
 };
 
-exports.compileTypeDefinitions = function(path, source, target, gulp) {
+exports.compileTypeDefinitions = function(source, target, gulp) {
 	if (!gulp) {
 		gulp = require('gulp');
 	}
 
 	var result = compile(gulp.src([
-		'./' + source + '/' + path, 
-		'./typings/**/*.d.ts'
+		'./typings/**/*.d.ts',
+		'./' + source + '/**/*.ts',
+		'!./' + source + '/**/*.tests.ts',
 	]), true);
 
 	return result.dts.pipe(gulp.dest('./' + target));
