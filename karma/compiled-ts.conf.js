@@ -15,7 +15,7 @@ module.exports = function (karma, depedencies, locations) {
 		locations.tests + '/**/*.js',
 	]);
 	
-	var config = sharedConfig();
+	var config = sharedConfig(karma);
 	config.files = files;
 	
 	return config;

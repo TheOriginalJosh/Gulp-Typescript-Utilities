@@ -15,7 +15,7 @@ module.exports = function (karma, depedencies, locations) {
 		locations.source + '/**/*.tests.ts',
 	]);
 	
-	var config = sharedConfig();
+	var config = sharedConfig(karma);
 	config.files = files;
 	config.frameworks.push('browserify');
 
