@@ -11,15 +11,27 @@ exports.project = ts.createProject('tsconfig.json', {
 	typescript: require('typescript'),
 });
 
-exports.compileDebug  = function(source, target, gulp) {
+exports.compileDebug  = function(source, target, includeTests, gulp) {
 	if (!gulp) {
 		gulp = require('gulp');
 	}
 	
-	var result = compile(gulp.src([
-		'./typings/**/*.d.ts',
-		'./' + source + '/**/*.ts', 
-	], { base: source }));
+	var sources;
+	
+	if (includeTests) {
+		sources = [
+			'./typings/**/*.d.ts',
+			'./' + source + '/**/*.ts', 
+		];
+	} else {
+		sources = [
+			'./typings/**/*.d.ts',
+			'./' + source + '/**/*.ts',
+			'!./' + source + '/**/*.tests.ts',
+		];
+	}
+	
+	var result = compile(gulp.src(sources, { base: source }));
 
 	return merge([
         result.js.pipe(gulp.dest('./' + target)),

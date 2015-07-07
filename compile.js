@@ -6,7 +6,7 @@ exports.config = function(gulp, packageName, locations) {
 	gulp.task('compile', ['compile.debug']);
 	
 	gulp.task('compile.debug', function() {
-		return typescript.compileDebug(locations.source, locations.debug, gulp);
+		return typescript.compileDebug(locations.source, locations.debug, false, gulp);
 	});
 	
 	gulp.task('compile.release', function(done) {

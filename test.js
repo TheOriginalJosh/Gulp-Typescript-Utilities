@@ -50,10 +50,10 @@ exports.config = function(gulp, karmaConfig, locationConfig) {
 	});
 			
 	gulp.task('test.build', function() {
-		return typescript.compileDebug(locationConfig.source, locationConfig.tests);
+		return typescript.compileDebug(locationConfig.source, locationConfig.tests, true, gulp);
 	});
 
 	gulp.task('test.copy', function() {
-		return copy('ts', locationConfig.source, locationConfig.tests);
+		return copy('ts', locationConfig.source, locationConfig.tests, gulp);
 	});
 };
