@@ -19,7 +19,7 @@ exports.compileDebug  = function(path, source, target, gulp) {
 	var result = compile(gulp.src([
 		'./typings/**/*.d.ts',
 		'./' + source + '/' + path, 
-	]));
+	], { base: source }));
 
 	return merge([
         result.js.pipe(gulp.dest('./' + target)),
