@@ -5,5 +5,6 @@ module.exports = function() {
 		assets: 'assets',
 		debug: 'debug',
 		release: 'release',
+		tests: 'tests',
 	};
 };

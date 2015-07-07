@@ -2,14 +2,14 @@
 
 var karma = require('karma').server;
 
-exports.config = function(gulp, karmaConfig) {
-    gulp.task('test', function (done) {
+exports.config = function(gulp, karmaConfig, locationConfig) {
+    gulp.task('test', ['test.prep'], function (done) {
     	karma.start({
 	    	configFile: karmaConfig,
 	    }, done);
     });
 
-    gulp.task('test.debug', function (done) {
+    gulp.task('test.debug', ['test.prep'], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		singleRun: false,
@@ -18,7 +18,7 @@ exports.config = function(gulp, karmaConfig) {
     	}, done);
     });
 
-    gulp.task('test.tc', function (done) {
+    gulp.task('test.tc', ['test.prep'], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		browsers: ['Chrome', 'Firefox', 'IE'],
@@ -26,10 +26,34 @@ exports.config = function(gulp, karmaConfig) {
     	}, done);
     });
 
-    gulp.task('test.all', function (done) {
+    gulp.task('test.all', ['test.prep'], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		browsers: ['Chrome', 'Firefox', 'IE'],
     	}, done);
     });
+	
+	var runSequence = require('run-sequence');
+	var typescript = require('./typescript');
+	var copy = require('./copy');
+	var del = require('del');
+
+	gulp.task('test.prep', function(done) {
+		runSequence('test.clean',
+					'test.build',
+					'test.copy',
+					done);
+	});
+
+	gulp.task('test.clean', function(done) {
+		del(locationConfig.tests, done);
+	});
+			
+	gulp.task('test.build', function() {
+		return typescript.compileDebug(locationConfig.source, locationConfig.tests);
+	});
+
+	gulp.task('test.copy', function() {
+		return copy('ts', locationConfig.source, locationConfig.tests);
+	});
 };
