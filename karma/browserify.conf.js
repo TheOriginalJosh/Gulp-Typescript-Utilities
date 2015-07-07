@@ -1,6 +1,6 @@
-var references = require('./resolve');
+var references = require('../resolve');
 
-var defaults = require('./defaults');
+var defaults = require('../defaults');
 var _ = require('lodash');
 
 var sharedConfig = require('./shared.conf');
