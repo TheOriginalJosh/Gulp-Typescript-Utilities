@@ -1,9 +1,10 @@
+var browserifyKarma = require('./karma/browserify.conf.js');
 var build = require('./build');
 var clean = require('./clean');
 var compile = require('./compile');
 var copy = require('./copy');
 var defaults = require('./defaults');
-var karma = require('./default-karma.conf');
+var karma = require('./karam/compiled-ts.conf');
 var lint = require('./lint');
 var requirejs = require('./requirejs');
 var resolve = require('./resolve');
@@ -12,6 +13,7 @@ var test = require('./test');
 var typescript = require('./typescript');
 
 module.exports = {
+	browserifyKarma: browserifyKarma,
 	build: build,
 	clean: clean,
 	compile: compile,
