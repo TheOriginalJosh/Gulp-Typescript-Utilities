@@ -1,2 +1,5 @@
-# GulpTypescriptUtilities
-Contains gulp tasks and configuring for compiling and minifying TypeScript files
+# Gulp-Typescript-Utilities
+
+Gulp tasks for compiling typescript to javascript.
+
+TODO: Write documentation
