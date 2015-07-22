@@ -1,6 +1,6 @@
 {
   "name": "gulp-utilities",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Standard gulp tasks for compiling TypeScript",
   "keywords": [
     "gulp",

@@ -33,24 +33,35 @@ module.exports.copyBowerDefinition = function(target, gulp) {
 	return gulp.src('./bower.json').pipe(gulp.dest('./' + target));
 }
 
-module.exports.config = function (gulp, locations) {
+module.exports.config = function (gulp, locations, includeLibraries) {
 	gulp.task('copy', ['copy.debug']);
 
 	gulp.task('copy.debug', function () {
-		return merge([
+		var copyStreams = [
 			copy(['json', 'ts', 'js', 'html', 'css'], locations.source, locations.debug, gulp),
-			copy('*', locations.libraries, locations.debug + '/' + locations.libraries, gulp),
 			copy('*', locations.assets, locations.debug + '/' + locations.assets, gulp),
 			copy.copyBowerDefinition(locations.debug, gulp),
-		]);
+		];
+		
+		if (includeLibraries) {
+			var libraryCopy = copy('*', locations.libraries, locations.debug + '/' + locations.libraries, gulp);
+			copyStreams.push(libraryCopy);
+		}
+		return merge(copyStreams);
 	});
 	
 	gulp.task('copy.release', function () {
-		return merge([
+		var copyStreams = [
 			copy(['json', 'js', 'html', 'css'], locations.source, locations.release, gulp),
-			copy('*', locations.libraries, locations.release + '/' + locations.libraries, gulp),
 			copy('*', locations.assets, locations.release + '/' + locations.assets, gulp),
 			copy.copyBowerDefinition(locations.release, gulp),
-		]);
+		];
+		
+		if (includeLibraries) {
+			var libraryCopy = copy('*', locations.libraries, locations.release + '/' + locations.libraries, gulp); 
+			copyStreams.push(libraryCopy);
+		}
+		
+		return merge(copyStreams);
 	});
 };

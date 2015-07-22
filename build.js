@@ -16,17 +16,21 @@ var runSequence = require('run-sequence');
 //     debug: 'debug',
 //     release: 'release',
 // }
-exports.config = function(gulp, packageName, locations, useLint) {
+exports.config = function(gulp, packageName, locations, useLint, includeLibraries) {
 	if (_.isUndefined(useLint)) {
 		useLint = true;
 	}
 	
+	if (_.isUndefined(includeLibraries)) {
+		includeLibraries = true;
+	}
+
 	locations = _.extend(defaults(), locations);
 	
 	lint.config(gulp, locations);
 	clean.config(gulp, locations);
 	compile.config(gulp, packageName, locations);
-	copy.config(gulp, locations);
+	copy.config(gulp, locations, includeLibraries);
 	
 	gulp.task('build', ['build.debug']);
 
