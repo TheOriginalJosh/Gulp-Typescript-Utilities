@@ -12,4 +12,13 @@ exports.config = function(gulp, packageName, locations) {
 	gulp.task('compile.release', function(done) {
 		return typescript.compileRelease(locations.source, locations.release, false, gulp);
 	});
+
+	var merge = require('merge2');
+
+	gulp.task('compile.library', function() {
+		return merge([
+			typescript.compileDebug(locations.source, locations.library, false, gulp),
+			typescript.compileRelease(locations.source, locations.library, false, gulp),
+		]);
+	});
 };

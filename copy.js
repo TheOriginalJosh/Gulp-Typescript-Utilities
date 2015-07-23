@@ -33,35 +33,52 @@ module.exports.copyBowerDefinition = function(target, gulp) {
 	return gulp.src('./bower.json').pipe(gulp.dest('./' + target));
 }
 
+function copyDebug(source, assets, libraries, destination, includeLibraries, gulp) {
+	if (_.isUndefined(gulp)) {
+		gulp = require('gulp');
+	}
+
+	var copyStreams = [
+		copy(['json', 'ts', 'js', 'html', 'css'], source, destination, gulp),
+		copy('*', assets, destination + '/' + assets, gulp),
+		copy.copyBowerDefinition(destination, gulp),
+	];
+
+	if (includeLibraries) {
+		var libraryCopy = copy('*', libraries, destination + '/' + libraries, gulp);
+		copyStreams.push(libraryCopy);
+	}
+
+	return merge(copyStreams);
+}
+
+function copyRelease(source, assets, libraries, destination, includeLibraries, gulp) {
+	var copyStreams = [
+		copy(['json', 'js', 'html', 'css'], source, destination, gulp),
+		copy('*', assets, destination + '/' + assets, gulp),
+		copy.copyBowerDefinition(destination, gulp),
+	];
+
+	if (includeLibraries) {
+		var libraryCopy = copy('*', libraries, destination + '/' + libraries, gulp); 
+		copyStreams.push(libraryCopy);
+	}
+
+	return merge(copyStreams);
+}
+
 module.exports.config = function (gulp, locations, includeLibraries) {
 	gulp.task('copy', ['copy.debug']);
 
 	gulp.task('copy.debug', function () {
-		var copyStreams = [
-			copy(['json', 'ts', 'js', 'html', 'css'], locations.source, locations.debug, gulp),
-			copy('*', locations.assets, locations.debug + '/' + locations.assets, gulp),
-			copy.copyBowerDefinition(locations.debug, gulp),
-		];
-		
-		if (includeLibraries) {
-			var libraryCopy = copy('*', locations.libraries, locations.debug + '/' + locations.libraries, gulp);
-			copyStreams.push(libraryCopy);
-		}
-		return merge(copyStreams);
+		return copyDebug(locations.source, locations.assets, locations.libraries, locations.debug, includeLibraries, gulp);
 	});
 	
 	gulp.task('copy.release', function () {
-		var copyStreams = [
-			copy(['json', 'js', 'html', 'css'], locations.source, locations.release, gulp),
-			copy('*', locations.assets, locations.release + '/' + locations.assets, gulp),
-			copy.copyBowerDefinition(locations.release, gulp),
-		];
-		
-		if (includeLibraries) {
-			var libraryCopy = copy('*', locations.libraries, locations.release + '/' + locations.libraries, gulp); 
-			copyStreams.push(libraryCopy);
-		}
-		
-		return merge(copyStreams);
+		return copyRelease(locations.source, locations.assets, locations.libraries, locations.release, includeLibraries, gulp);
+	});
+	
+	gulp.task('copy.library', function() {
+		return copyDebug(locations.source, locations.assets, locations.libraries, locations.library, includeLibraries, gulp);
 	});
 };

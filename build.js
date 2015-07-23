@@ -63,4 +63,19 @@ exports.config = function(gulp, packageName, locations, useLint, includeLibrarie
 						done);
 		}
 	});
+	
+	gulp.task('build.library', function(done) {
+		if (useLint) {
+			runSequence('lint',
+						'clean.library',
+						'compile.library',
+						'copy.library',
+						done);
+		} else {
+			runSequence('clean.library',
+						'compile.library',
+						'copy.library',
+						done);
+		}
+	});
 };

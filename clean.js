@@ -30,4 +30,8 @@ module.exports.config = function(gulp, locations) {
 	gulp.task('clean.release', function (done) {
 		return clean(locations.release, done);
 	});
+	
+	gulp.task('clean.library', function(done) {
+		return clean(locations.library, done);
+	})
 };
