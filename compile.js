@@ -27,11 +27,11 @@ exports.config = function(gulp, packageName, locations) {
 		return typescript.compileDebug(locations.source, locations.library, true, gulp);
 	});
 
-	var defaultOutput = typescript.project.out;
+	var defaultOutput = typescript.project.options.out;
 	
 	gulp.task('compile.library.setOutputMinify', function() {
 		var match = /(.*)(\.js)/;
-		typescript.project.out = defaultOutput.replace(match, '$1.min$2');
+		typescript.project.options.out = defaultOutput.replace(match, '$1.min$2');
 	})
 	
 	gulp.task('compile.library.release', function() {
@@ -39,6 +39,6 @@ exports.config = function(gulp, packageName, locations) {
 	});
 	
 	gulp.task('compile.library.resetOutputMinify', function() {
-		typescript.project.out = defaultOutput;
+		typescript.project.options.out = defaultOutput;
 	})
 };
