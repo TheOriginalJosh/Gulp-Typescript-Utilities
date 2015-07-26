@@ -25,6 +25,8 @@ exports.config = function(gulp, locations, useLint, includeLibraries) {
 		includeLibraries = true;
 	}
 
+	runSequence = runSequence.use(gulp);
+
 	locations = _.extend(defaults(), locations);
 
 	lint.config(gulp, locations);

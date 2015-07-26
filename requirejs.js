@@ -1,5 +1,3 @@
-var runSequence = require('run-sequence');
-
 var typescript = require('./typescript');
 var merge = require('merge2');
 

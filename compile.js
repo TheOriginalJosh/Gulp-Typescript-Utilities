@@ -3,6 +3,8 @@ var runSequence = require('run-sequence');
 var typescript = require('./typescript');
 
 exports.config = function(gulp, locations) {
+	runSequence = runSequence.use(gulp);
+
 	gulp.task('compile', ['compile.debug']);
 
 	gulp.task('compile.debug', function() {

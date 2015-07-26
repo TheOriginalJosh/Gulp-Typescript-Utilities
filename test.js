@@ -32,8 +32,8 @@ exports.config = function(gulp, karmaConfig, locationConfig) {
     		browsers: ['Chrome', 'Firefox', 'IE'],
     	}, done);
     });
-	
-	var runSequence = require('run-sequence');
+
+	var runSequence = require('run-sequence').use(gulp);
 	var typescript = require('./typescript');
 	var copy = require('./copy');
 	var del = require('del');
@@ -48,7 +48,7 @@ exports.config = function(gulp, karmaConfig, locationConfig) {
 	gulp.task('test.clean', function(done) {
 		del(locationConfig.tests, done);
 	});
-			
+
 	gulp.task('test.build', function() {
 		return typescript.compileDebug(locationConfig.source, locationConfig.tests, true, gulp);
 	});
