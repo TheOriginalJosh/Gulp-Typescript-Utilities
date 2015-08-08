@@ -1,7 +1,5 @@
 /* global require: false, exports: false */
 
-var gulp = require('gulp');
-
 var replace = require('gulp-replace');
 var _ = require('lodash');
 
@@ -15,13 +13,17 @@ exports.release = function(libReferences, libraryPath, target, index) {
 	return insertScripts(scripts, locations.release, index);
 };
 
-function insertScripts(scripts, target, index) {
+function insertScripts(scripts, target, index, gulp) {
+	if (_.ifUndefined(gulp)) {
+		gulp = require('gulp');
+	}
+
 	if (!index) {
 		index = 'index.html';
 	}
-	
+
     index = target + '/' + index;
-	
+
     // Find <!-- build:js scripts/vendor --> ... <!-- endbuild -->
     // Replace internal block <!-- bower:js --> ... <!-- endbower --> with the script tags
     //                  Find build tag start for vendor scripts....match any content..find bower ref area..match previous bower refs to end..match any content..find end build tag
@@ -30,7 +32,7 @@ function insertScripts(scripts, target, index) {
     var findBowerScriptArea = /<!--\s*build:js\s*scripts\/vendor\s*-->((?:\n|\r|.)*?)<!--\s*bower:js\s*-->(?:\n|\r|.)*<!--\s*endbower\s*-->((?:\n|\r|.)*?)<!--\s*endbuild\s*-->/gim;
     var bowerReferences = '<!--build:js scripts\/vendor-->' +
                           '$1' +
-                          '<!--bower:js-->\n' + 
+                          '<!--bower:js-->\n' +
                           scripts +
                           '\t<!--endbower-->' +
                           '$2' +
@@ -64,5 +66,5 @@ function buildScripts(references) {
     return _.reduce(references, function (scripts, reference) {
         return scripts +
             scriptTemplate.replace('{0}', reference) + '\n';
-    }, '');        
+    }, '');
 }

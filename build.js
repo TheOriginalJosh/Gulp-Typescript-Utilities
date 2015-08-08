@@ -9,74 +9,90 @@ var defaults = require('./defaults');
 
 var runSequence = require('run-sequence');
 
-// locations: {
-//     source: 'source',
-//     libraries: 'libraries',
-//     assets: 'assets',
-//     debug: 'debug',
-//     release: 'release',
-// }
-exports.config = function(gulp, locations, useLint, includeLibraries) {
-	if (_.isUndefined(useLint)) {
-		useLint = true;
-	}
+var defaultOptions = {
+	locations: defaults.locations(),
+	useLint: true,
+	includeLibraries: true,
+	taskNames: {
+		lint: 'lint',
+		build: {
+			debug: 'build.debug',
+			release: 'build.release',
+			library: 'build.library',
+		},
+		clean: {
+			debug: 'clean.debug',
+			release: 'clean.release',
+			library: 'clean.library',
+		},
+		compile: {
+			debug: 'compile.debug',
+			release: 'compile.release',
+			library: 'compile.library',
+		},
+		copy: {
+			debug: 'copy.debug',
+			release: 'copy.release',
+			library: 'copy.library',
+		},
+	},
+};
 
-	if (_.isUndefined(includeLibraries)) {
-		includeLibraries = true;
+exports.config = function(options, gulp) {
+	if (_.isUndefined(gulp)) {
+		gulp = require('gulp');
 	}
 
 	runSequence = runSequence.use(gulp);
 
-	locations = _.extend(defaults(), locations);
+	options = _.extend(defaultOptions, options);
 
-	lint.config(gulp, locations);
-	clean.config(gulp, locations);
-	compile.config(gulp, locations);
-	copy.config(gulp, locations, includeLibraries);
+	lint.config(options, gulp);
+	clean.config(options, gulp);
+	compile.config(options, gulp);
+	copy.config(options, gulp);
 
-	gulp.task('build', ['build.debug']);
-
-	gulp.task('build.debug', function(done) {
-		if (useLint) {
-			runSequence('lint',
-						'clean.debug',
-						'compile.debug',
-						'copy.debug',
+	gulp.task(options.taskNames.build.debug, function(done) {
+		if (options.useLint) {
+			runSequence(options.taskNames.lint,
+						options.taskNames.clean.debug,
+						options.taskNames.compile.debug,
+						options.taskNames.copy.debug,
 						done);
 		} else {
-			runSequence('clean.debug',
-						'compile.debug',
-						'copy.debug',
+			runSequence(options.taskNames.clean.debug,
+						options.taskNames.compile.debug,
+						options.taskNames.copy.debug,
 						done);
 		}
 	});
 
-	gulp.task('build.release', function(done) {
-		if (useLint) {
-			runSequence('lint',
-						'clean.release',
-						'compile.release',
-						'copy.release',
+	gulp.task(options.taskNames.build.release, function(done) {
+		if (options.useLint) {
+			runSequence(options.taskNames.lint,
+						options.taskNames.clean.release,
+						options.taskNames.compile.release,
+						options.taskNames.copy.release,
 						done);
 		} else {
-			runSequence('clean.release',
-						'compile.release',
-						'copy.release',
+			runSequence(options.taskNames.clean.release,
+						options.taskNames.compile.release,
+						options.taskNames.copy.release,
 						done);
 		}
 	});
 
-	gulp.task('build.library', function(done) {
-		if (useLint) {
-			runSequence('lint',
-						'clean.library',
-						'compile.library',
-						'copy.library',
+	gulp.task(options.taskNames.build.library, function(done) {
+		if (options.useLint) {
+			runSequence(options.taskNames.lint,
+						options.taskNames.clean.library,
+						options.taskNames.compile.library,
+						options.taskNames.copy.library,
 						done);
 		} else {
-			runSequence('clean.library',
-						'compile.library',
-						'copy.library',
+			runSequence(options.taskNames.clean.library,
+						options.taskNames.compile.library,
+						options.taskNames.copy.library,
 						done);
 		}
 	});

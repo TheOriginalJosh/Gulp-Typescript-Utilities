@@ -2,14 +2,37 @@
 
 var karma = require('karma').server;
 
-exports.config = function(gulp, karmaConfig, locationConfig) {
-    gulp.task('test', ['test.prep'], function (done) {
+var runSequence = require('run-sequence').use(gulp);
+var typescript = require('./typescript');
+var copy = require('./copy');
+var del = require('del');
+
+var defaults = require('./defaults');
+
+var defaultOptions = {
+	locations: defaults.locations(),
+	taskNames: {
+		test: {
+			default: 'test',
+			debug: 'test.debug',
+			tc: 'test.tc',
+			all: 'test.all',
+			prep: 'test.prep',
+			clean: 'test.clean',
+			build: 'test.build',
+			copy: 'test.copy',
+		}
+	}
+};
+
+exports.config = function(karmaConfig, options, gulp) {
+    gulp.task(options.taskNames.test.default, [options.taskNames.test.prep], function (done) {
     	karma.start({
 	    	configFile: karmaConfig,
 	    }, done);
     });
 
-    gulp.task('test.debug', ['test.prep'], function (done) {
+    gulp.task(options.taskNames.test.debug, [options.taskNames.test.prep], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		singleRun: false,
@@ -18,7 +41,7 @@ exports.config = function(gulp, karmaConfig, locationConfig) {
     	}, done);
     });
 
-    gulp.task('test.tc', ['test.prep'], function (done) {
+    gulp.task(options.taskNames.test.tc, [options.taskNames.test.prep], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		browsers: ['Chrome', 'Firefox', 'IE'],
@@ -26,34 +49,29 @@ exports.config = function(gulp, karmaConfig, locationConfig) {
     	}, done);
     });
 
-    gulp.task('test.all', ['test.prep'], function (done) {
+    gulp.task(options.taskNames.test.all, [options.taskNames.test.prep], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		browsers: ['Chrome', 'Firefox', 'IE'],
     	}, done);
     });
 
-	var runSequence = require('run-sequence').use(gulp);
-	var typescript = require('./typescript');
-	var copy = require('./copy');
-	var del = require('del');
-
-	gulp.task('test.prep', function(done) {
-		runSequence('test.clean',
-					'test.build',
-					'test.copy',
+	gulp.task(options.taskNames.test.prep, function(done) {
+		runSequence(options.taskNames.test.clean,
+					options.taskNames.test.build,
+					options.taskNames.test.copy,
 					done);
 	});
 
-	gulp.task('test.clean', function(done) {
+	gulp.task(options.taskNames.test.clean, function(done) {
 		del(locationConfig.tests, done);
 	});
 
-	gulp.task('test.build', function() {
+	gulp.task(options.taskNames.test.build, function() {
 		return typescript.compileDebug(locationConfig.source, locationConfig.tests, true, gulp);
 	});
 
-	gulp.task('test.copy', function() {
+	gulp.task(options.taskNames.test.copy, function() {
 		return copy('ts', locationConfig.source, locationConfig.tests, gulp);
 	});
 };

@@ -1,6 +1,8 @@
 var del = require('del');
 var _ = require('lodash');
 
+var defaults = require('./defaults');
+
 function clean(target, done) {
 	var dir = './' + target;
 	var deleteList = [dir + '/*'];
@@ -20,18 +22,29 @@ function getPreservedFiles(directory) {
 
 module.exports = clean;
 
-module.exports.config = function(gulp, locations) {
-	gulp.task('clean', ['clean.debug']);
+var defaultOptions = {
+	locations: defaults.locations(),
+	taskNames: {
+		clean: {
+			debug: 'clean.debug',
+			release: 'clean.release',
+			library: 'clean.library',
+		},
+	},
+};
 
-	gulp.task('clean.debug', function (done) {
-		return clean(locations.debug, done);
+module.exports.config = function(options, gulp) {
+	options = _.extends(defaultOptions, options);
+
+	gulp.task(options.taskNames.clean.debug, function (done) {
+		return clean(options.locations.debug, done);
 	});
 
-	gulp.task('clean.release', function (done) {
-		return clean(locations.release, done);
+	gulp.task(options.taskNames.clean.release, function (done) {
+		return clean(options.locations.release, done);
 	});
-	
-	gulp.task('clean.library', function(done) {
-		return clean(locations.library, done);
+
+	gulp.task(options.taskNames.clean.library, function(done) {
+		return clean(options.locations.library, done);
 	})
 };

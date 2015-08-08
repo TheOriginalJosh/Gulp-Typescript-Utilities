@@ -15,13 +15,13 @@ exports.compileDebug  = function(source, target, includeTests, gulp) {
 	if (!gulp) {
 		gulp = require('gulp');
 	}
-	
+
 	var sources;
-	
+
 	if (includeTests) {
 		sources = [
 			'./typings/**/*.d.ts',
-			'./' + source + '/**/*.ts', 
+			'./' + source + '/**/*.ts',
 		];
 	} else {
 		sources = [
@@ -30,8 +30,8 @@ exports.compileDebug  = function(source, target, includeTests, gulp) {
 			'!./' + source + '/**/*.tests.ts',
 		];
 	}
-	
-	var result = compile(gulp.src(sources, { base: source }));
+
+	var result = compileImplementation(gulp.src(sources, { base: source }));
 
 	return merge([
         result.js.pipe(gulp.dest('./' + target)),
@@ -44,13 +44,13 @@ exports.compileRelease = function(source, target, includeTypings, gulp) {
 		gulp = require('gulp');
 	}
 
-	var result = compile(gulp.src([
+	var result = compileImplementation(gulp.src([
 		'./typings/**/*.d.ts',
 		'./' + source + '/**/*.ts',
 		'!./' + source + '/**/*.tests.ts',
 	]), true);
 
-	if (includeTypings) { 
+	if (includeTypings) {
 		return merge([
 			result.js.pipe(streamify(uglify()))
 			.pipe(gulp.dest('./' + target)),
@@ -68,7 +68,7 @@ exports.compileTypeDefinitions = function(source, target, gulp) {
 		gulp = require('gulp');
 	}
 
-	var result = compile(gulp.src([
+	var result = compileImplementation(gulp.src([
 		'./typings/**/*.d.ts',
 		'./' + source + '/**/*.ts',
 		'!./' + source + '/**/*.tests.ts',
@@ -77,11 +77,11 @@ exports.compileTypeDefinitions = function(source, target, gulp) {
 	return result.dts.pipe(gulp.dest('./' + target));
 };
 
-exports.compile = compile;
+exports.compile = compileImplementation;
 
-function compile(source, noSourceMappings) {
+function compileImplementation(source, noSourceMappings) {
 	var typescriptCompiler = ts(exports.project);
-	
+
 	if (noSourceMappings) {
 		return source.pipe(typescriptCompiler);
 	} else {
