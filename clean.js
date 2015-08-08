@@ -37,7 +37,7 @@ module.exports.config = function(options, gulp) {
 		gulp = require('gulp');
 	}
 
-	options = _.assign(defaultOptions, options);
+	options = _.defaultsDeep(options, defaultOptions);
 
 	var taskNames = options.taskNames;
 

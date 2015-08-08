@@ -23,7 +23,7 @@ var defaultOptions = {
 };
 
 module.exports.config = function(options, gulp) {
-	options = _.assign(defaultOptions, options);
+	options = _.defaultsDeep(options, defaultOptions);
 
     gulp.task(options.taskNames.lint, function() {
 		lintImplementation(options.locations.source, gulp);

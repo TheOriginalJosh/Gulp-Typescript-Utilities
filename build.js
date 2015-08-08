@@ -30,7 +30,7 @@ exports.config = function(options, gulp) {
 
 	var runSequence = require('run-sequence').use(gulp);
 
-	options = _.assign(defaultOptions, options);
+	options = _.defaultsDeep(options, defaultOptions);
 
 	lint.config(options, gulp);
 	clean.config(options, gulp);

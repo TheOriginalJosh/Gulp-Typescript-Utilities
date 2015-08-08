@@ -32,7 +32,7 @@ exports.config = function(karmaConfig, options, gulp) {
 
 	var runSequence = require('run-sequence').use(gulp);
 
-	options = _.assign(defaultOptions, options);
+	options = _.defaultsDeep(options, defaultOptions);
 
 	var testNames = options.taskNames.test;
 	var prepName = testNames.base + '.' + testNames.prep
