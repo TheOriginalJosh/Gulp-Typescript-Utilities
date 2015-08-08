@@ -7,8 +7,6 @@ var copy = require('./copy');
 
 var defaults = require('./defaults');
 
-var runSequence = require('run-sequence');
-
 var defaultOptions = {
 	locations: defaults.locations(),
 	useLint: true,
@@ -30,7 +28,7 @@ exports.config = function(options, gulp) {
 		gulp = require('gulp');
 	}
 
-	runSequence = runSequence.use(gulp);
+	var runSequence = require('run-sequence').use(gulp);
 
 	options = _.assign(defaultOptions, options);
 

@@ -3,7 +3,6 @@
 var karma = require('karma').server;
 var _ = require('lodash');
 
-var runSequence = require('run-sequence');
 var typescript = require('./typescript');
 var copy = require('./copy');
 var del = require('del');
@@ -31,7 +30,7 @@ exports.config = function(karmaConfig, options, gulp) {
 		gulp = require('gulp');
 	}
 
-	runSequence = runSequence.use(gulp);
+	var runSequence = require('run-sequence').use(gulp);
 
 	options = _.assign(defaultOptions, options);
 

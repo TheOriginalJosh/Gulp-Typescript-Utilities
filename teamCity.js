@@ -1,4 +1,3 @@
-var runSequence = require('run-sequence');
 var gulp = require('gulp');
 
 exports.config = function(taskName, gulp) {
@@ -10,7 +9,7 @@ exports.config = function(taskName, gulp) {
 		gulp = require('gulp');
 	}
 
-	runSequence = runSequence.use(gulp);
+	var runSequence = require('run-sequence').use(gulp);
 
 	gulp.task(taskName, function(done) {
 		runSequence('build.release',

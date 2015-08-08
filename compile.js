@@ -1,5 +1,4 @@
 var _ = require('lodash');
-var runSequence = require('run-sequence');
 var merge = require('merge2');
 
 var typescript = require('./typescript');
@@ -21,7 +20,7 @@ exports.config = function(options, gulp) {
 		gulp = require('gulp');
 	}
 
-	runSequence = runSequence.use(gulp);
+	var runSequence = require('run-sequence').use(gulp);
 
 	options = _.assign(defaultOptions, options);
 

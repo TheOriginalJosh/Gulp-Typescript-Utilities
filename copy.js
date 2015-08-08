@@ -48,7 +48,7 @@ function copyDebug(source, assets, libraries, destination, includeLibraries, gul
 	];
 
 	if (includeLibraries) {
-		var libraryCopy = copy('*', libraries, destination + '/' + libraries, gulp);
+		var libraryCopy = copyImplementation('*', libraries, destination + '/' + libraries, gulp);
 		copyStreams.push(libraryCopy);
 	}
 
