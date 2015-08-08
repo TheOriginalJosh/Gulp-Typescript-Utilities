@@ -2,7 +2,7 @@
 
 var karma = require('karma').server;
 
-var runSequence = require('run-sequence').use(gulp);
+var runSequence = require('run-sequence');
 var typescript = require('./typescript');
 var copy = require('./copy');
 var del = require('del');
@@ -29,6 +29,8 @@ exports.config = function(karmaConfig, options, gulp) {
 	if (_.isUndefined(gulp)) {
 		gulp = require('gulp');
 	}
+
+	runSequence = runSequence.use(gulp);
 
 	options = _.extend(defaultOptions, options);
 
