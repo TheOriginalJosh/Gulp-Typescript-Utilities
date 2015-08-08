@@ -12,7 +12,7 @@ exports.config = function(taskName, gulp) {
 
 	runSequence = runSequence.use(gulp);
 
-	gulp.task('tc', function(done) {
+	gulp.task(taskName, function(done) {
 		runSequence('build.release',
 					'test.tc',
 					done);

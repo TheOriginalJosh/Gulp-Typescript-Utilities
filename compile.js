@@ -9,11 +9,10 @@ var defaults = require('./defaults');
 var defaultOptions = {
 	locations: defaults.locations(),
 	taskNames: {
-		compile: {
-			debug: 'compile.debug',
-			release: 'compile.release',
-			library: 'compile.library',
-		},
+		compile: 'compile',
+		debug: 'debug',
+		release: 'release',
+		library: 'library',
 	},
 };
 
@@ -24,26 +23,29 @@ exports.config = function(options, gulp) {
 
 	runSequence = runSequence.use(gulp);
 
-	options = _.extends(defaultOptions, options);
+	options = _.assign(defaultOptions, options);
 
-	gulp.task(options.taskNames.compile.debug, function() {
+	var taskNames = options.taskNames;
+
+	gulp.task(taskNames.compile + '.' + taskNames.debug, function() {
 		return typescript.compileDebug(options.locations.source, options.locations.debug, true, gulp);
 	});
 
-	gulp.task(options.taskNames.compile.release, function(done) {
+	gulp.task(taskNames.compile + '.' + taskNames.release, function(done) {
 		return typescript.compileRelease(options.locations.source, options.locations.release, false, gulp);
 	});
 
-	var libraryDebug = options.taskNames.compile.library + '.debug';
-	var libraryRelease = options.taskNames.compile.library + '.release';
-	var setMinifyOutput = options.taskNames.compile.library + '.setOutputMinify';
-	var resetMinifyOutput = options.taskNames.compile.library + '.resetOutputMinify';
+	var library = taskNames.compile + '.' + taskNames.library;
+	var libraryDebug = library + '.' + taskNames.debug;
+	var libraryRelease = library + '.' + taskNames.release;
+	var setMinifyOutput = library + '.setOutputMinify';
+	var resetMinifyOutput = library + '.resetOutputMinify';
 
-	gulp.task(options.taskNames.compile.library, function(done) {
+	gulp.task(taskNames.compile + '.' + taskNames.library, function(done) {
 		runSequence(libraryDebug,
-					options.taskNames.setMinifyOutput,
+					setMinifyOutput,
 					libraryRelease,
-					options.taskNames.resetMinifyOutput,
+					resetMinifyOutput,
 					done);
 	});
 

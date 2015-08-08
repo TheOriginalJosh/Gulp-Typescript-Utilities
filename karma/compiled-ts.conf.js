@@ -7,16 +7,16 @@ var sharedConfig = require('./shared.conf');
 
 // Karma configuration
 module.exports = function (karma, depedencies, locations) {
-	locations = _.extend(defaults(), locations);
-	
+	locations = _.assign(defaults.location(), locations);
+
 	var files = references.getReferences(depedencies, locations.libraries);
 	files = files.concat([
 		locations.libraries + '/angular-mocks/angular-mocks.js',
 		locations.tests + '/**/*.js',
 	]);
-	
+
 	var config = sharedConfig(karma);
 	config.files = files;
-	
+
 	return config;
 };

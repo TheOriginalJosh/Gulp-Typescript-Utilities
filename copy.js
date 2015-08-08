@@ -74,11 +74,10 @@ var defaultOptions = {
 	locations: defaults.locations(),
 	includeLibraries: true,
 	taskNames: {
-		copy: {
-			debug: 'copy.debug',
-			release: 'copy.release',
-			library: 'copy.library',
-		},
+		copy: 'copy',
+		debug: 'debug',
+		release: 'release',
+		library: 'library',
 	},
 };
 
@@ -87,17 +86,19 @@ module.exports.config = function (options, gulp) {
 		gulp = require('gulp');
 	}
 
-	options = _.extends(defaultOptions, options);
+	options = _.assign(defaultOptions, options);
 
-	gulp.task(options.taskNames.copy.debug, function () {
+	var taskNames = options.taskNames;
+
+	gulp.task(taskNames.copy + '.' + taskNames.debug, function () {
 		return copyDebug(options.locations.source, options.locations.assets, options.locations.libraries, options.locations.debug, options.includeLibraries, gulp);
 	});
 
-	gulp.task(options.taskNames.copy.release, function () {
+	gulp.task(taskNames.copy + '.' + taskNames.release, function () {
 		return copyRelease(options.locations.source, options.locations.assets, options.locations.libraries, options.locations.release, options.includeLibraries, gulp);
 	});
 
-	gulp.task(options.taskNames.copy.library, function() {
+	gulp.task(taskNames.copy + '.' + taskNames.library, function() {
 		return copyDebug(options.locations.source, options.locations.assets, options.locations.libraries, options.locations.library, options.includeLibraries, gulp);
 	});
 };

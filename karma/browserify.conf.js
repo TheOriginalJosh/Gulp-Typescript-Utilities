@@ -7,14 +7,14 @@ var sharedConfig = require('./shared.conf');
 
 // Karma configuration
 module.exports = function (karma, depedencies, locations) {
-	locations = _.extend(defaults(), locations);
-	
+	locations = _.assign(defaults.location(), locations);
+
 	var files = references.getReferences(depedencies, locations.libraries);
 	files = files.concat([
 		locations.libraries + '/angular-mocks/angular-mocks.js',
 		locations.source + '/**/*.tests.ts',
 	]);
-	
+
 	var config = sharedConfig(karma);
 	config.files = files;
 	config.frameworks.push('browserify');
@@ -28,9 +28,9 @@ module.exports = function (karma, depedencies, locations) {
 			}],
 		],
 	};
-	
+
 	config.preprocessors = {};
 	config.preprocessors[locations.source + '/**/*.tests.ts'] = ['browserify'];
-	
+
 	return config;
 };

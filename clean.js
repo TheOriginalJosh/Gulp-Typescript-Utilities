@@ -25,26 +25,31 @@ module.exports = clean;
 var defaultOptions = {
 	locations: defaults.locations(),
 	taskNames: {
-		clean: {
-			debug: 'clean.debug',
-			release: 'clean.release',
-			library: 'clean.library',
-		},
+		clean: 'clean',
+		debug: 'debug',
+		release: 'release',
+		library: 'library',
 	},
 };
 
 module.exports.config = function(options, gulp) {
-	options = _.extends(defaultOptions, options);
+	if (_.isUndefined(gulp)) {
+		gulp = require('gulp');
+	}
 
-	gulp.task(options.taskNames.clean.debug, function (done) {
+	options = _.assign(defaultOptions, options);
+
+	var taskNames = options.taskNames;
+
+	gulp.task(taskNames.clean + '.' + taskNames.debug, function (done) {
 		return clean(options.locations.debug, done);
 	});
 
-	gulp.task(options.taskNames.clean.release, function (done) {
+	gulp.task(taskNames.clean + '.' + taskNames.release, function (done) {
 		return clean(options.locations.release, done);
 	});
 
-	gulp.task(options.taskNames.clean.library, function(done) {
+	gulp.task(taskNames.clean + '.' + taskNames.library, function(done) {
 		return clean(options.locations.library, done);
 	})
 };
