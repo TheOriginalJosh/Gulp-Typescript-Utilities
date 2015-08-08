@@ -26,6 +26,12 @@ var defaultOptions = {
 };
 
 exports.config = function(karmaConfig, options, gulp) {
+	if (_.isUndefined(gulp)) {
+		gulp = require('gulp');
+	}
+
+	options = _.extend(defaultOptions, options);
+
     gulp.task(options.taskNames.test.default, [options.taskNames.test.prep], function (done) {
     	karma.start({
 	    	configFile: karmaConfig,
