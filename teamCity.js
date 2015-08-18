@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var _ = require('lodash');
 
 exports.config = function(taskName, gulp) {
 	if (_.isUndefined(taskName)) {
