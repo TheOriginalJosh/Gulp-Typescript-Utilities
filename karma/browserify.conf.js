@@ -7,7 +7,7 @@ var sharedConfig = require('./shared.conf');
 
 // Karma configuration
 module.exports = function (karma, depedencies, locations) {
-	locations = _.assign(defaults.location(), locations);
+	locations = _.defaultsDeep(locations, defaults.locations());
 
 	var files = references.getReferences(depedencies, locations.libraries);
 	files = files.concat([
