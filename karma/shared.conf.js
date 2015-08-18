@@ -26,5 +26,14 @@ module.exports = function(karma) {
         
 		// enable / disable colors in the output (reporters and logs)
 		colors: true,
+		
+		plugins: [
+			'karma-mocha',
+			'karma-chai',
+			'karma-sinon',
+			'karma-chrome-launcher',
+			'karma-firefox-launcher',
+			'karma-ie-launcher',
+		],
 	};
 }
