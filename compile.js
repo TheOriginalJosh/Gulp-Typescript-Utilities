@@ -27,7 +27,7 @@ exports.config = function(options, gulp) {
 	var taskNames = options.taskNames;
 
 	gulp.task(taskNames.compile + '.' + taskNames.debug, function() {
-		return typescript.compileDebug(options.locations.source, options.locations.debug, true, gulp);
+		return typescript.compileDebug(options.locations.source, options.locations.debug, false, gulp);
 	});
 
 	gulp.task(taskNames.compile + '.' + taskNames.release, function(done) {
@@ -49,7 +49,7 @@ exports.config = function(options, gulp) {
 	});
 
 	gulp.task(libraryDebug, function() {
-		return typescript.compileDebug(options.locations.source, options.locations.library, true, gulp);
+		return typescript.compileDebug(options.locations.source, options.locations.library, false, gulp);
 	});
 
 	var defaultOutput = typescript.project.options.out;
