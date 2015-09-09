@@ -11,6 +11,7 @@ var resolve = require('./resolve');
 var teamCity = require('./teamCity');
 var test = require('./test');
 var typescript = require('./typescript');
+var update = require('./update');
 
 module.exports = {
 	browserifyKarma: browserifyKarma,
@@ -26,4 +27,5 @@ module.exports = {
 	teamCity: teamCity,
 	test: test,
 	typescript: typescript,
+	update: update,
 };
