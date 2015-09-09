@@ -43,7 +43,11 @@ exports.config = function(karmaConfig, options, gulp) {
 	    }, done);
     });
 
-    gulp.task(options.taskNames.test.debug, [prepName], function (done) {
+	var debugName = testNames.base + '.' + testNames.debug;
+	var teamCityName = testNames.base + '.' + testNames.tc;
+	var testAllName = testNames.base + '.' + testNames.all;
+
+    gulp.task(debugName, [prepName], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		singleRun: false,
@@ -52,7 +56,7 @@ exports.config = function(karmaConfig, options, gulp) {
     	}, done);
     });
 
-    gulp.task(options.taskNames.test.tc, [prepName], function (done) {
+    gulp.task(teamCityName, [prepName], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		browsers: ['Chrome', 'Firefox', 'IE'],
@@ -60,7 +64,7 @@ exports.config = function(karmaConfig, options, gulp) {
     	}, done);
     });
 
-    gulp.task(options.taskNames.test.all, [prepName], function (done) {
+    gulp.task(testAllName, [prepName], function (done) {
     	karma.start({
     		configFile: karmaConfig,
     		browsers: ['Chrome', 'Firefox', 'IE'],
