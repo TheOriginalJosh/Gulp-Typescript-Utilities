@@ -57,13 +57,13 @@ function copyDebug(source, assets, libraries, destination, includeLibraries, gul
 
 function copyRelease(source, assets, libraries, destination, includeLibraries, gulp) {
 	var copyStreams = [
-		copy(['json', 'js', 'html', 'css'], source, destination, gulp),
-		copy('*', assets, destination + '/' + assets, gulp),
-		copy.copyBowerDefinition(destination, gulp),
+		copyImplementation(['json', 'js', 'html', 'css'], source, destination, gulp),
+		copyImplementation('*', assets, destination + '/' + assets, gulp),
+		copyImplementation.copyBowerDefinition(destination, gulp),
 	];
 
 	if (includeLibraries) {
-		var libraryCopy = copy('*', libraries, destination + '/' + libraries, gulp);
+		var libraryCopy = copyImplementation('*', libraries, destination + '/' + libraries, gulp);
 		copyStreams.push(libraryCopy);
 	}
 
