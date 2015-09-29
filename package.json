@@ -17,17 +17,8 @@
   "dependencies": {
     "del": "^1.1.1",
     "gulp": "^3.8.11",
-    "gulp-replace": "^0.5.3",
-    "gulp-sourcemaps": "^1.5.0",
-    "gulp-streamify": "0.0.5",
-    "gulp-tslint": "^2.0.0",
-    "gulp-typescript": "^2.4.2",
-    "gulp-uglify": "^1.2.0",
-    "karma": "^0.12.32",
-    "lodash": "^3.10.1",
-    "merge2": "^0.3.1",
-    "requirejs": "^2.1.18",
-    "run-sequence": "^1.0.2"
+    "karma": "^0.13.10",
+    "lodash": "^3.10.1"
   },
   "peerDependencies": {
     "karma-mocha": "^0.1.3",
