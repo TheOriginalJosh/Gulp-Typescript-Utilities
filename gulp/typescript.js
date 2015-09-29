@@ -7,9 +7,11 @@ var sourcemaps = require('gulp-sourcemaps');
 
 var ts = require('gulp-typescript');
 
-exports.project = ts.createProject('tsconfig.json', {
-	typescript: require('typescript'),
-});
+exports.project = function() {
+	return ts.createProject('tsconfig.json', {
+		typescript: require('typescript'),
+	});
+};
 
 exports.compileDebug  = function(source, target, includeTests, gulp) {
 	if (!gulp) {
@@ -80,7 +82,7 @@ exports.compileTypeDefinitions = function(source, target, gulp) {
 exports.compile = compileImplementation;
 
 function compileImplementation(source, noSourceMappings) {
-	var typescriptCompiler = ts(exports.project);
+	var typescriptCompiler = ts(exports.project());
 
 	if (noSourceMappings) {
 		return source.pipe(typescriptCompiler);

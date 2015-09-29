@@ -1,8 +1,6 @@
 var tslint = require('gulp-tslint');
 var _ = require('lodash');
 
-var defaults = require('./defaults');
-
 function lintImplementation(source, gulp) {
 	if (_.isUndefined(gulp)) {
 		gulp = require('gulp');
@@ -16,7 +14,7 @@ function lintImplementation(source, gulp) {
 module.exports = lintImplementation;
 
 var defaultOptions = {
-	locations: defaults.locations(),
+	source: 'source',
 	taskNames: {
 		lint: 'lint',
 	},
@@ -26,6 +24,6 @@ module.exports.config = function(options, gulp) {
 	options = _.defaultsDeep(options, defaultOptions);
 
     gulp.task(options.taskNames.lint, function() {
-		lintImplementation(options.locations.source, gulp);
+		lintImplementation(options.source, gulp);
     });
 };
