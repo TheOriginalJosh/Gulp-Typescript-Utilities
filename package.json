@@ -8,9 +8,10 @@
     "compile",
     "lint"
   ],
+  "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "/"
+    "url": "https://github.com/RenovoSolutions/Gulp-Typescript-Utilities"
   },
   "author": "Josh Graber <jgraber@renovo1.com>",
   "dependencies": {
