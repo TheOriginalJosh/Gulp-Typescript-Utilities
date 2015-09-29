@@ -3,4 +3,9 @@ var standard = require('./default.config');
 var full = require('./full.config');
 var tc = require('./teamCity.config');
 
-module.exports = { debug, standard, full, tc };
+module.exports = {
+	debug: debug,
+	standard: standard,
+	full: full,
+	tc: tc,
+};
