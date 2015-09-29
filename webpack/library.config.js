@@ -1,18 +1,16 @@
 var webpackTS = require('./ts.config');
 
-var path = require('path');
-
-module.exports = function(entry, libraryName, outDir, outFile, externals) {
+module.exports = function(options) {
 	var webpackLibrary = webpackTS();
 
-	webpackLibrary.entry = entry;
+	webpackLibrary.entry = options.entry;
 	webpackLibrary.output = {
-		path: path.resolve(outDir),
-		filename: outFile,
-		library: libraryName,
+		path: options.path,
+		filename: options.filename,
+		library: options.library,
 		libraryTarget: 'this',
 	};
-	webpackLibrary.externals = externals;
+	webpackLibrary.externals = options.externals;
 
 	return webpackLibrary;
 };
