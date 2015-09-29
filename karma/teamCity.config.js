@@ -2,8 +2,8 @@
 
 var fullConfig = require('./full.config');
 
-module.exports = function (karma) {
-	var options = fullConfig(karma);
+module.exports = function (karma, files) {
+	var options = fullConfig(karma, files);
 	options.reporters = ['teamcity'];
 
 	karma.set(options);
