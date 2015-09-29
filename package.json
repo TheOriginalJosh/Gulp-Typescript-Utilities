@@ -17,6 +17,7 @@
   "dependencies": {
     "del": "^1.1.1",
     "gulp": "^3.8.11",
+    "gulp-tslint": "^3.3.0",
     "karma": "^0.13.10",
     "lodash": "^3.10.1"
   },
