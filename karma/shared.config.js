@@ -27,6 +27,8 @@ module.exports = function(karma) {
 		// enable / disable colors in the output (reporters and logs)
 		colors: true,
 
+		port: 2000,
+
 		plugins: [
 			'karma-mocha',
 			'karma-chai',
