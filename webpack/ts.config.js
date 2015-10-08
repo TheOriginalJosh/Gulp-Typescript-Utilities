@@ -1,5 +1,6 @@
 module.exports = function() {
 	return {
+		bail: true,
 		module: {
 			loaders: [
 				{
