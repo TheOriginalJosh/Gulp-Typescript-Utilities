@@ -11,7 +11,7 @@ module.exports = function() {
 			],
 		},
 		resolve: {
-			extensions: ['', '.webpack.js','.web.js', '.js', '.ts'],
+			extensions: ['', '.webpack.js','.web.js', '.ts', '.js'],
 		},
 	};
 };
