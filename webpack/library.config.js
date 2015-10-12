@@ -6,6 +6,7 @@ module.exports = function(options) {
 	webpackLibrary.entry = options.entry;
 	webpackLibrary.output = {
 		path: options.path,
+		publicPath: options.publicPath || options.path,
 		filename: options.filename,
 		library: options.library,
 		libraryTarget: 'this',
