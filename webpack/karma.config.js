@@ -1,7 +1,14 @@
-var webpackTS = require('./ts.config');
-
-module.exports = function() {
-	var karmaWebpack = webpackTS();
-	karmaWebpack.devtool = 'inline-source-map';
-	return karmaWebpack;
+module.exports = function () {
+	return {
+		bail: true,
+		devtool: 'inline-source-map',
+		module: {
+			loaders: [
+				{
+					test: /\.json$/,
+					loader: 'json-loader',
+				},
+			],
+		},
+	};
 };
