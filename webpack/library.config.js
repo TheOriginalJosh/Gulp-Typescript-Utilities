@@ -1,3 +1,5 @@
+var loaders = require('./defaultLoaders');
+
 module.exports = function(options) {
 	return {
 		bail: true,
@@ -11,21 +13,7 @@ module.exports = function(options) {
 		},
 		externals: options.externals,
 		module: {
-			loaders: [
-				{
-					test: /\.css$/,
-					loader: 'style-loader!css-loader',
-				},
-				{
-					test: /\.html$/,
-					exclude: /node_modules/,
-					loader: 'raw-loader',
-				},
-				{
-					test: /\.json$/,
-					loader: 'json-loader',
-				},
-			],
+			loaders: loaders,
 		},
 	};
 };
