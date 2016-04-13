@@ -24,9 +24,11 @@ module.exports = function (karma, globalFiles, testFiles) {
 function arrayify(maybeArray) {
 	if (_.isArray(maybeArray)) {
 		return maybeArray;
+	} else if (maybeArray) {
+		return [maybeArray];
+	} else {
+		return [];
 	}
-
-	return [maybeArray];
 }
 
 function addPreprocessor(options, path) {
