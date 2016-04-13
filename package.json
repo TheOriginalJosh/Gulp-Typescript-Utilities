@@ -30,7 +30,10 @@
     "karma-ie-launcher": "^0.2.0",
     "karma-webpack": "^1.7.0",
     "source-map-loader": "^0.1.5",
-    "ts-loader": "^0.8.1",
+	"json-loader": "^0.5.4",
+	"raw-loader": "^0.5.1",
+	"css-loader": "^0.23.1",
+	"style-loader": "^0.13.1",
     "typescript": "^1.8.2",
     "webpack": "^1.12.14"
   },
