@@ -1,3 +1,6 @@
+var karmaWebpackLibrary = require('karma-webpack');
+var karmaWebpack = require('../webpack/karma.config');
+
 module.exports = function(karma) {
 	var options = {
 		// frameworks to use
@@ -36,7 +39,10 @@ module.exports = function(karma) {
 			'karma-chrome-launcher',
 			'karma-firefox-launcher',
 			'karma-ie-launcher',
+			karmaWebpackLibrary,
 		],
+
+		webpack: karmaWebpack(),
 	};
 
 	karma.set(options);

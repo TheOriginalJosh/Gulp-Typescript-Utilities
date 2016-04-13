@@ -4,6 +4,7 @@ var defaultConfig = require('./default.config');
 
 module.exports =  function (karma, files) {
 	var options = defaultConfig(karma, files);
+	options.autoWatch = true;
 	options.singleRun = false;
 
 	// Add source-map-loader to webpack so that source maps will be retained

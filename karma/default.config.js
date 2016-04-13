@@ -3,30 +3,31 @@
 var _ = require('lodash');
 
 var sharedConfig = require('./shared.config');
-var karmaWebpack = require('../webpack/karma.config');
 
-var karmaWebpackLibrary = 'karma-webpack';
 var webpackPreprocessorLibrary = 'webpack';
 
-module.exports = function (karma, files) {
+module.exports = function (karma, globalFiles, testFiles) {
+	globalFiles = arrayify(globalFiles);
+	testFiles = arrayify(testFiles);
+
 	var options = sharedConfig(karma);
-	options.files = files;
 
-	if (_.isArray(files)) {
-		_.each(files, function(file) { addPreprocessor(options, file); });
-	} else if (files) {
-		addPreprocessor(options, files);
-	}
+	options.files = globalFiles.concat(testFiles);
 
-	options.webpack = karmaWebpack();
-
-	options.plugins = options.plugins || [];
-	options.plugins.push(karmaWebpackLibrary);
+	_.each(testFiles, function(file) { addPreprocessor(options, file); });
 
 	karma.set(options);
 	return options;
 };
 
+
+function arrayify(maybeArray) {
+	if (_.isArray(maybeArray)) {
+		return maybeArray;
+	}
+
+	return [maybeArray];
+}
 
 function addPreprocessor(options, path) {
 	options.preprocessors = options.preprocessors || {};
