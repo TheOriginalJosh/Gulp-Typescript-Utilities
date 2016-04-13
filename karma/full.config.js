@@ -2,8 +2,8 @@
 
 var defaultConfig = require('./default.config');
 
-module.exports = function(karma, files) {
-	var options = defaultConfig(karma, files);
+module.exports = function(karma, testFiles, globalFiles, externals) {
+	var options = defaultConfig(karma, testFiles, globalFiles, externals);
 	options.browsers = ['Chrome', 'Firefox', 'IE'];
 
 	karma.set(options);
