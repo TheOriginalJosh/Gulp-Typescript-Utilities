@@ -6,7 +6,7 @@ var sharedConfig = require('./shared.config');
 
 var webpackPreprocessorLibrary = 'webpack';
 
-module.exports = function (karma, globalFiles, testFiles) {
+module.exports = function (karma, testFiles, globalFiles, externals) {
 	globalFiles = arrayify(globalFiles);
 	testFiles = arrayify(testFiles);
 
@@ -15,6 +15,8 @@ module.exports = function (karma, globalFiles, testFiles) {
 	options.files = globalFiles.concat(testFiles);
 
 	_.each(testFiles, function(file) { addPreprocessor(options, file); });
+
+	options.webpack.externals = externals;
 
 	karma.set(options);
 	return options;
