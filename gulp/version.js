@@ -16,7 +16,8 @@ exports.config = function(gulp) {
 	}
 
 	gulp.task('version', (done) => {
-		return exports.version(args.version)
+		var versionStr = args.version;
+		return exports.version(versionStr)
 			.then(() => {
 				console.log('Version changed to ' + versionStr);
 				done();
