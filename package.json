@@ -1,7 +1,10 @@
 {
-  "name": "gulp-utilities",
-  "version": "2.0.6",
+  "name": "@renovolive/gulp-utilities",
+  "version": "2.1.0",
   "description": "Standard gulp tasks for compiling TypeScript",
+  "publishConfig": {
+    "registry": "https://www.myget.org/F/renovolive-npm/npm/"
+  },
   "keywords": [
     "gulp",
     "TypeScript",
