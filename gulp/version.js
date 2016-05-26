@@ -15,14 +15,12 @@ exports.config = function(gulp) {
 		gulp = require('gulp');
 	}
 
-	gulp.task('version', (done) => {
+	gulp.task('version', () => {
 		var versionStr = args.version;
 		return exports.version(versionStr)
 			.then(() => {
 				console.log('Version changed to ' + versionStr);
-				done();
-			})
-			.catch(err => done(err));
+			});
 	});
 };
 
