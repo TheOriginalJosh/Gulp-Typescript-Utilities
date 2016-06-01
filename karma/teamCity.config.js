@@ -1,13 +1,15 @@
 // Karma configuration
 
-var fullConfig = require('./full.config');
+var teamCityReporter = require('karma-teamcity-reporter');
+var sharedConfig = require('./shared.config');
 
-module.exports = function (karma, testFiles, globalFiles, externals) {
-	var options = fullConfig(karma, testFiles, globalFiles, externals);
+module.exports =  function (karma, fileDependencies, settings) {
+	var options = sharedConfig.config(karma, fileDependencies, settings);
+	options.browsers = ['Chrome', 'Firefox'];
 	options.reporters = ['teamcity'];
 
 	options.plugins = options.plugins || [];
-	options.plugins.push('karma-teamcity-reporter');
+	options.plugins.push(teamCityReporter);
 
 	karma.set(options);
 	return options;

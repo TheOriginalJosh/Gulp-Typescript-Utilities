@@ -1,9 +1,9 @@
 // Karma configuration
 
-var defaultConfig = require('./default.config');
+var sharedConfig = require('./shared.config');
 
-module.exports = function(karma, testFiles, globalFiles, externals) {
-	var options = defaultConfig(karma, testFiles, globalFiles, externals);
+module.exports =  function (karma, fileDependencies, settings) {
+	var options = sharedConfig.config(karma, fileDependencies, settings);
 	options.browsers = ['Chrome', 'Firefox', 'IE'];
 
 	karma.set(options);
