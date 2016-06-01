@@ -50,10 +50,12 @@ System.config({
 
 System.import(settings.configPath)
 	.then(function () {
-		return System.import(settings.testSetupPath)
-			.then(function (setup) {
-				return setup();
-			});
+		if (settings.testSetupPath) {
+			return System.import(settings.testSetupPath)
+				.then(function (setup) {
+					return setup();
+				});
+		}
 	})
 	.then(function () {
 		// Finally, load all spec files.
