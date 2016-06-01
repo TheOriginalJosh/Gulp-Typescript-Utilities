@@ -63,15 +63,14 @@ exports.defaultSettings = {
 	appPath: '/source/',
 	testsExtension: '.tests.js',
 	configPath: 'system.config.js',
+	globalSettingsPath: 'globalSettings.js',
 };
-
-var globalSettingsPath = 'globalSettings.js';
 
 exports.config = function(karma, fileDependencies, settings) {
 	settings = settings || {};
 	settings = _.defaults(settings, exports.defaultSettings);
 
-	fs.writeFileSync(globalSettingsPath, 'window.settings = ' + JSON.stringify(settings) + ';', 'utf8');
+	fs.writeFileSync(settings.globalSettingsPath, 'window.settings = ' + JSON.stringify(settings) + ';', 'utf8');
 
 	fileDependencies = arrayify(fileDependencies);
 	fileDependencies.map(function(file) {
@@ -83,7 +82,7 @@ exports.config = function(karma, fileDependencies, settings) {
 	});
 
 	var settingsFile = {
-		pattern: globalSettingsPath,
+		pattern: settings.globalSettingsPath,
 		included: true,
 		watched: false,
 	};
