@@ -49,6 +49,7 @@ exports.polyfills = [
 	{ pattern: 'node_modules/reflect-metadata/Reflect.js', included: true, watched: false },
 	{ pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: false },
 	{ pattern: 'node_modules/zone.js/dist/async-test.js', included: true, watched: false },
+	{ pattern: 'node_modules/zone.js/dist/fake-async-test.js', included: true, watched: false },
 ];
 
 exports.karmaShimFile = {
