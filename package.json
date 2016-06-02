@@ -24,6 +24,7 @@
     "jsonfile": "^2.3.1",
     "karma": "^0.13.21",
     "lodash": "^4.5.1",
+    "run-sequence": "^1.2.1",
     "thenify": "^3.2.0",
     "yargs": "^4.7.1"
   },
