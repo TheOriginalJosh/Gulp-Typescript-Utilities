@@ -47,7 +47,6 @@ exports.polyfills = [
 	{ pattern: 'node_modules/es6-shim/es6-shim.js', included: true, watched: false },
 	{ pattern: 'node_modules/zone.js/dist/zone.js', included: true, watched: false },
 	{ pattern: 'node_modules/reflect-metadata/Reflect.js', included: true, watched: false },
-	{ pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: true, watched: false },
 	{ pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: false },
 	{ pattern: 'node_modules/zone.js/dist/async-test.js', included: true, watched: false },
 ];
