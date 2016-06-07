@@ -33,13 +33,13 @@ exports.config = function(taskName, bundleSource, options, gulp) {
 	var bundlePath = path.join(options.outDir, options.outFile);
 	var vendorPath = path.join(options.outDir, options.vendorFile);
 
-	gulp.task(taskPrefix + '.watch', (done) => {
-		gulp.watch(scriptFiles, [taskPrefix]);
-	});
-
 	var mainAppFilesStr =
 		'(' + options.mainAppFiles.map(item => '[' + item + ']').join(' + ') + ')';
 
+	gulp.task(taskPrefix + '.watch', (done) => {
+		gulp.watch(options.mainAppFiles, [taskPrefix]);
+	});
+	
 	if (options.makeRenovoBundle) {
 		var renovoPath = path.join(options.outDir, options.renovoFile);
 
