@@ -41,7 +41,7 @@ exports.baseConfig = function(karma) {
 			require('karma-ie-launcher'),
 		],
 
-		customLaunchers = {
+		customLaunchers: {
 			ChromeNoSandbox: {
 				base: 'Chrome',
 				flags: ['--no-sandbox'],
