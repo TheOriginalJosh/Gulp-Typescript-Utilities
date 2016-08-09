@@ -20,7 +20,7 @@ exports.baseConfig = function(karma) {
 
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome'],
+		browsers: ['ChromeNoSandbox'],
 
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
@@ -40,6 +40,13 @@ exports.baseConfig = function(karma) {
 			require('karma-firefox-launcher'),
 			require('karma-ie-launcher'),
 		],
+
+		customLaunchers = {
+			ChromeNoSandbox: {
+				base: 'Chrome',
+				flags: ['--no-sandbox'],
+			},
+		},
 	};
 };
 
