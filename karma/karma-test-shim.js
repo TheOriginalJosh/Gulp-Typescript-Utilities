@@ -4,12 +4,10 @@
 var settings = window.settings;
 
 Error.stackTraceLimit = Infinity;
-mocha.setup({
-	timeout: settings.timeout,
-})
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
-__karma__.loaded = function () {
-};
+__karma__.loaded = function () { };
+window.expect = chai.expect;
 
 // Karma base path
 var basePath = '/base';

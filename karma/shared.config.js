@@ -5,7 +5,7 @@ exports.baseConfig = function(karma) {
 	return {
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-		frameworks: ['mocha', 'chai', 'sinon'],
+		frameworks: ['jasmine', 'chai', 'sinon'],
 
 		// enable / disable watching file and executing tests whenever any file changes
 		autoWatch: false,
@@ -33,7 +33,7 @@ exports.baseConfig = function(karma) {
 		port: 2000,
 
 		plugins: [
-			require('karma-mocha'),
+			require('karma-jasmine'),
 			require('karma-chai'),
 			require('karma-sinon'),
 			require('karma-chrome-launcher'),
@@ -52,11 +52,15 @@ exports.baseConfig = function(karma) {
 
 exports.polyfills = [
 	{ pattern: 'node_modules/es6-shim/es6-shim.js', included: true, watched: false },
-	{ pattern: 'node_modules/zone.js/dist/zone.js', included: true, watched: false },
 	{ pattern: 'node_modules/reflect-metadata/Reflect.js', included: true, watched: false },
 	{ pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: false },
-	{ pattern: 'node_modules/zone.js/dist/async-test.js', included: true, watched: false },
-	{ pattern: 'node_modules/zone.js/dist/fake-async-test.js', included: true, watched: false },
+	'node_modules/zone.js/dist/zone.js',
+	'node_modules/zone.js/dist/long-stack-trace-zone.js',
+	'node_modules/zone.js/dist/proxy.js',
+	'node_modules/zone.js/dist/sync-test.js',
+	'node_modules/zone.js/dist/jasmine-patch.js',
+	'node_modules/zone.js/dist/async-test.js',
+	'node_modules/zone.js/dist/fake-async-test.js',
 ];
 
 exports.karmaShimFile = {
