@@ -1,6 +1,6 @@
 {
   "name": "@renovolive/gulp-utilities",
-  "version": "2.2.0",
+  "version": "2.4.0",
   "description": "Standard gulp tasks for compiling TypeScript",
   "publishConfig": {
     "registry": "https://www.myget.org/F/renovolive-npm/npm/"
@@ -35,8 +35,8 @@
     "karma-chrome-launcher": "~0.2.2",
     "karma-firefox-launcher": "~0.1.7",
     "karma-ie-launcher": "^0.2.0",
-    "rxjs": "^5.0.0-rc.2",
-    "typescript": "^1.8.2"
+    "typescript": "^2.0.3",
+    "rxjs": "^5.0.0-rc.2"
   },
   "license": "MIT"
 }
