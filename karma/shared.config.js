@@ -111,6 +111,8 @@ exports.config = function(karma, fileDependencies, settings) {
 	}
 
 	var options = exports.baseConfig(karma);
+
+	options = addPreprocessor(options,'../rxjs/*.js')
 	options.files = exports.polyfills
 		.concat(fileDependencies)
 		.concat([settingsFile])
